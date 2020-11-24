@@ -26,9 +26,9 @@ Describe 'New-StigCheckList' {
         }
     }
 
-    Example -OutputPath $TestDrive
+    Example -OutputPath $env:TEMP
 
-    $mofTest = '{0}{1}' -f $TestDrive.fullname,"\localhost.mof"
+    $mofTest = '{0}{1}' -f $env:TEMP.fullname,"\localhost.mof"
 
     # Test parameter validity -OutputPath
     It 'SHould -Throw if an invalid path is provided' {
@@ -56,7 +56,7 @@ Describe 'New-StigCheckList' {
     It 'Generate a checklist given correct parameters' {
 
         {
-            $outputPath = Join-Path $Testdrive -ChildPath Checklist.ckl
+            $outputPath = Join-Path $env:TEMP -ChildPath Checklist.ckl
             $xccdfPath = ((Get-ChildItem -Path $script:moduleRoot\StigData\Archive -Include *xccdf.xml -Recurse | Where-Object -Property Name -Match "Server_2019_MS")[1]).FullName
             New-StigChecklist -ReferenceConfiguration $mofTest -XccdfPath $xccdfPath -OutputPath $outputPath
         } | Should -Not -Throw
@@ -76,7 +76,7 @@ Describe 'ConvertTo-ManualCheckListHashTable' {
     [void] $xmlContentStringBuilder.AppendLine('</stigRuleData>')
     [void] $xmlContentStringBuilder.AppendLine('</stigManualChecklistData>')
 
-    Set-Content -Value $xmlContentStringBuilder.ToString() -Path (Join-Path -Path $TestDrive -ChildPath 'test.xml')
+    Set-Content -Value $xmlContentStringBuilder.ToString() -Path (Join-Path -Path $env:TEMP -ChildPath 'test.xml')
 
     $xmlHashTableResult = @{
         Comments = 'Not Applicable'
@@ -93,14 +93,14 @@ Describe 'ConvertTo-ManualCheckListHashTable' {
     [void] $psd1ContentStringBuilder.AppendLine("`tComments = `"Not Applicable`"")
     [void] $psd1ContentStringBuilder.AppendLine('}')
 
-    Set-Content -Value $psd1ContentStringBuilder.ToString() -Path (Join-Path -Path $TestDrive -ChildPath 'test.psd1')
+    Set-Content -Value $psd1ContentStringBuilder.ToString() -Path (Join-Path -Path $env:TEMP -ChildPath 'test.psd1')
 
     $psd1HashTableResult = $xmlHashTableResult.Clone()
     $psd1HashTableResult['Details'] = $psd1HashTableResult['Comments']
 
 
     It 'Should convert xml content into a hashtable' {
-        $convertedXmlHashTable = ConvertTo-ManualCheckListHashTable -Path (Join-Path -Path $TestDrive -ChildPath 'test.xml') -XccdfPath 'C:\bogusXccdf.xml'
+        $convertedXmlHashTable = ConvertTo-ManualCheckListHashTable -Path (Join-Path -Path $env:TEMP -ChildPath 'test.xml') -XccdfPath 'C:\bogusXccdf.xml'
         $convertedXmlHashTable.Keys.Count | Should -be $xmlHashTableResult.Keys.Count
         foreach ($key in $convertedXmlHashTable.Keys)
         {
@@ -110,7 +110,7 @@ Describe 'ConvertTo-ManualCheckListHashTable' {
 
     It 'Should convert specifically formatted psd1 content into a hashtable' {
         Mock Get-StigXccdfFileName {return 'U_Windows_Firewall_STIG_V1R7_Manual-xccdf.xml'}
-        $convertedPsd1HashTable = ConvertTo-ManualCheckListHashTable -Path (Join-Path -Path $TestDrive -ChildPath 'test.psd1') -XccdfPath 'C:\bogusXccdf.xml'
+        $convertedPsd1HashTable = ConvertTo-ManualCheckListHashTable -Path (Join-Path -Path $env:TEMP -ChildPath 'test.psd1') -XccdfPath 'C:\bogusXccdf.xml'
         $convertedPsd1HashTable.Keys.Count | Should -be $psd1HashTableResult.Keys.Count
         foreach ($key in $convertedPsd1HashTable.Keys)
         {

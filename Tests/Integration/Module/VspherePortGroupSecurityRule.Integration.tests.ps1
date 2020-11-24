@@ -36,7 +36,7 @@ try
                 param ($VmGroup, $MacChangesInherited, $CheckContent, $FixText)
 
                 [xml] $stigRule = Get-TestStigRule -Checkcontent $CheckContent -FixText $FixText -XccdfTitle 'Vsphere'
-                $testFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+                $testFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 

@@ -130,7 +130,7 @@ try
         foreach ( $stig in $stigRulesToTest )
         {
             [xml] $stigRule = Get-TestStigRule -CheckContent $stig.CheckContent -XccdfTitle 'SQL' -FixText $stig.FixText
-            $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+            $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 

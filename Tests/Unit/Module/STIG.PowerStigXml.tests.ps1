@@ -8,8 +8,8 @@ foreach ($xccdf in $xccdfs)
     Describe "ConvertTo-PowerStigXml $($xccdf.name)" {
 
         It 'Should return an 2 XML' {
-            ConvertTo-PowerStigXml -Path $xccdf.FullName -Destination $TestDrive -CreateOrgSettingsFile -RuleIdFilter $randomId
-            $converted = Get-ChildItem -Path $testdrive
+            ConvertTo-PowerStigXml -Path $xccdf.FullName -Destination $env:TEMP -CreateOrgSettingsFile -RuleIdFilter $randomId
+            $converted = Get-ChildItem -Path $env:TEMP
             $converted.FullName.EndsWith(".xml").Count | Should -be 2
         }
     }

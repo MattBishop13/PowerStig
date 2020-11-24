@@ -110,7 +110,7 @@ finding.
 
         Context 'Forwarders' {
             [xml] $stigRule = Get-TestStigRule -CheckContent $forwardersCheckContent -XccdfTitle 'Domain Name System'
-            $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+            $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
@@ -134,7 +134,7 @@ finding.
         Context 'EventLogLevel' {
 
             [xml] $stigRule = Get-TestStigRule -CheckContent $eventLogLevelCheckContent -XccdfTitle 'Domain Name System'
-            $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+            $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
@@ -161,7 +161,7 @@ finding.
         Context 'Multiple settings in STIG rule' {
 
             [xml] $stigRule = Get-TestStigRule -CheckContent $multiUserRightRule -XccdfTitle 'Domain Name System'
-            $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+            $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
@@ -174,7 +174,7 @@ finding.
         Context 'UserRightRule and PermissionRule Combo' {
 
             [xml] $stigRule = Get-TestStigRule -CheckContent $userRightPermissionRuleCombo -XccdfTitle 'Domain Name System'
-            $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+            $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 

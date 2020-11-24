@@ -240,7 +240,7 @@ Begin
     Plaster                         = 'latest'
     ModuleBuilder                   = '1.0.0'
     ChangelogManagement             = 'latest'
-    Sampler                         = '0.104.0'
+    Sampler                         = 'latest'
     xDSCResourceDesigner            = 'latest'
     PSPKI                           = 'latest'
     MarkdownLinkCheck               = 'latest'

@@ -194,7 +194,7 @@ try
         {
             Context "$($registry.id)" {
                 [xml] $stigRule = Get-TestStigRule -CheckContent $registry.CheckContent -XccdfTitle Windows -XccdfId $registry.TechnologyRole
-                $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+                $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
                 $stigRule.Save( $TestFile )
                 $rule = ConvertFrom-StigXccdf -Path $TestFile
 

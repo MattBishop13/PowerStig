@@ -8,12 +8,12 @@ try
 
         $sampleXccdfFileName = 'U_Windows_Server_2016{0}_STIG_V1R1_Manual-xccdf.xml'
         $sampleXccdfId = 'Windows_Server_2016{0}_STIG'
-        $sampleXccdfPath = "$TestDrive\$sampleXccdfFileName" -f ''
+        $sampleXccdfPath = "$env:TEMP\$sampleXccdfFileName" -f ''
         (Get-TestStigRule -XccdfId ($sampleXccdfId -f '')).Save($sampleXccdfPath)
         Split-StigXccdf -Path $sampleXccdfPath
 
         Context 'Member Server' {
-            $sampleXccdfSplitPath = "$TestDrive\$sampleXccdfFileName" -f '_MS'
+            $sampleXccdfSplitPath = "$env:TEMP\$sampleXccdfFileName" -f '_MS'
             It 'Should create an MS STIG file' {
                 Test-Path -Path $sampleXccdfSplitPath | Should -be $true
             }
@@ -25,7 +25,7 @@ try
         }
 
         Context 'Domain Controller' {
-            $sampleXccdfSplitPath = "$TestDrive\$sampleXccdfFileName" -f '_DC'
+            $sampleXccdfSplitPath = "$env:TEMP\$sampleXccdfFileName" -f '_DC'
             It 'Should create an DC STIG file' {
                 Test-Path -Path $sampleXccdfSplitPath | Should -be $true
             }

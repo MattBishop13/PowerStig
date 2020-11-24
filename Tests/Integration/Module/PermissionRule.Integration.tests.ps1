@@ -31,7 +31,7 @@ try
         $checkContent = $checkContent -f $targetExe, $principal1, $permission1, $principalList,
         $permission2, $principal2, $permission3, $inheritance
         [xml] $stigRule = Get-TestStigRule -CheckContent $checkContent -XccdfTitle Windows
-        $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+        $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
         $stigRule.Save( $TestFile )
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 

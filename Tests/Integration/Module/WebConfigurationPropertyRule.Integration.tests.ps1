@@ -60,7 +60,7 @@ try
             Context $stig.Key {
 
                 [xml] $StigRule = Get-TestStigRule -CheckContent $stig.CheckContent -XccdfTitle 'IIS'
-                $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+                $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
                 $StigRule.Save( $TestFile )
                 $rule = ConvertFrom-StigXccdf -Path $TestFile
 

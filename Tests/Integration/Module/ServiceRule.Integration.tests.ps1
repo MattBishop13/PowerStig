@@ -73,7 +73,7 @@ try
             Context "Service '$($service.ServiceName)'" {
 
                 [xml] $stigRule = Get-TestStigRule -CheckContent $service.CheckContent -XccdfTitle Windows
-                $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+                $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
                 $stigRule.Save( $TestFile )
                 $rule = ConvertFrom-StigXccdf -Path $TestFile
 
@@ -109,7 +109,7 @@ try
     If the Startup Type for any of these services is not Automatic, this is a finding'
 
         [xml] $stigRule = Get-TestStigRule -CheckContent $checkContent -XccdfTitle Windows
-        $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+        $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
         $stigRule.Save( $TestFile )
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 

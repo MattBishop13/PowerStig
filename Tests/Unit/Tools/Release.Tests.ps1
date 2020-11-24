@@ -11,7 +11,7 @@ try
 
         Describe 'Test-ModuleVersion' -Tag 'tools' {
 
-            $manifestPath = "$TestDrive\testManifest.psd1"
+            $manifestPath = "$env:TEMP\testManifest.psd1"
             New-ModuleManifest -Path $manifestPath -ModuleVersion '1.0.0.0'
             $moduleVersion = '1.1.0.0'
 
@@ -228,7 +228,7 @@ try
             $null = $sampleReadme.AppendLine('### 1.0.0.0')
             $null = $sampleReadme.AppendLine('')
 
-            $sampleReadmePath = "$TestDrive\readme.md"
+            $sampleReadmePath = "$env:TEMP\readme.md"
             Mock -CommandName Get-ChildItem -MockWith { @{ FullName = $sampleReadmePath } }
             Mock -CommandName Get-Content -MockWith {$sampleReadme.ToString()}
 
@@ -263,7 +263,7 @@ try
         Describe 'Update-Manifest' -Tag 'tools' {
             $moduleVersion = '1.2.3.4'
             $releaseNotes  = 'Added super cool feature'
-            $manifestPath  = "$TestDrive\testManifest.psd1"
+            $manifestPath  = "$env:TEMP\testManifest.psd1"
             New-ModuleManifest -Path $manifestPath -ModuleVersion '1.0.0.0' -ReleaseNotes 'test'
             Update-Manifest -ModuleVersion $moduleVersion -ReleaseNotes $releaseNotes -ManifestPath $manifestPath
             $manifest = Import-PowerShellDataFile -Path $manifestPath
@@ -290,7 +290,7 @@ try
             $null = $appveyor.AppendLine('    Invoke-AppveyorInstallTask')
             $null = $appveyor.AppendLine('')
             $null = $appveyor.AppendLine('#---------------------------------#')
-            $appveyorPath = "$TestDrive\appveyor.yml"
+            $appveyorPath = "$env:TEMP\appveyor.yml"
 
             Mock -CommandName Get-ChildItem -MockWith { @{ FullName = $appveyorPath } }
             Mock -CommandName Get-Content -MockWith {$appveyor.ToString()}
@@ -351,7 +351,7 @@ try
                 Mock -CommandName Get-Content -MockWith { 'APIKeyMaterial' } `
                     -ParameterFilter { $path.EndsWith('sampleFile.txt')} -Verifiable
                 Mock -CommandName ConvertTo-SecureString -MockWith {} -Verifiable
-                Get-GitHubApiKey -SecureFilePath "$Testdrive\sampleFile.txt"
+                Get-GitHubApiKey -SecureFilePath "$env:TEMP\sampleFile.txt"
                 Assert-VerifiableMock
             }
         }

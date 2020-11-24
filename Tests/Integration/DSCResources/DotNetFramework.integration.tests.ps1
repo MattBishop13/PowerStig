@@ -15,7 +15,7 @@ foreach ($stig in $stigList)
                 & "$($script:DSCCompositeResourceName)_config" `
                 -FrameworkVersion $stig.TechnologyVersion `
                 -StigVersion $stig.StigVersion `
-                -OutputPath $TestDrive
+                -OutputPath $env:TEMP
             } | Should -Not -Throw
         }
 
@@ -23,7 +23,7 @@ foreach ($stig in $stigList)
 
         if (Test-AutomatableRuleType -StigObject $dscXml)
         {
-            $configurationDocumentPath = "$TestDrive\localhost.mof"
+            $configurationDocumentPath = "$env:TEMP\localhost.mof"
 
             $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 

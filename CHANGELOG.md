@@ -2,6 +2,7 @@
 
 ## [Unreleased]
 
+* Refactor PowerSTIG Tests for Pester 5.x: [#776](https://github.com/microsoft/PowerStig/issues/776)
 * Update PowerSTIG to send a warning to the user when using a composite that leverages the new DISA Ids: [#772](https://github.com/microsoft/PowerStig/issues/772)
 * Update PowerSTIG to successfully parse/apply Microsoft Office System 2013 STIG - Ver 2, Rel 1: [#769](https://github.com/microsoft/PowerStig/issues/769)
 * Update PowerSTIG to successfully parse/apply Microsoft Windows 2012 Server DNS STIG - Ver 2, Rel 1: [#760](https://github.com/microsoft/PowerStig/issues/760)

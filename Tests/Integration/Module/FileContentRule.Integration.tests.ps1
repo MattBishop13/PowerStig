@@ -56,7 +56,7 @@ try
         foreach ($fileContentRule in $fileContentRulesToTest)
         {
             [xml] $stigRule = Get-TestStigRule -CheckContent $fileContentRule.CheckContent -XccdfTitle Windows
-            $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+            $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
             $stigRule.Save( $TestFile )
             $global:stigXccdfName = $fileContentRule.ArchiveFile
             $rule = ConvertFrom-StigXccdf -Path $TestFile

@@ -12,7 +12,7 @@ try
 
         If the value for "Setting to Configure" is not set to "Disabled", this is a finding.'
         [xml] $stigRule = Get-TestStigRule -CheckContent $checkContent -XccdfTitle Windows
-        $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+        $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
         $stigRule.Save( $TestFile )
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 
@@ -44,7 +44,7 @@ try
 
         If the "Account lockout threshold" is "0" or more than "3" attempts, this is a finding.'
         [xml] $stigRule = Get-TestStigRule -CheckContent $checkContent -XccdfTitle Windows
-        $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+        $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
         $stigRule.Save( $TestFile )
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 

@@ -27,7 +27,7 @@ try
                 param ($OrganizationValueTestString, $CheckContent)
 
                 [xml] $stigRule = Get-TestStigRule -Checkcontent $CheckContent -XccdfTitle 'Vsphere' -GroupId 'V-94039'
-                $testFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+                $testFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 

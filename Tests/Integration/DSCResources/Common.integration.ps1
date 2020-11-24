@@ -16,7 +16,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
         TechnologyVersion  = $stig.TechnologyVersion
         TechnologyRole     = $stig.TechnologyRole
         StigVersion        = $stig.StigVersion
-        OutputPath         = $TestDrive
+        OutputPath         = $env:TEMP
         ResourceParameters = $resourceParameters
     }
 
@@ -33,7 +33,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
     $ruleNames = (Get-Member -InputObject $powerstigXml |
         Where-Object -FilterScript {$_.Name -match '.*Rule' -and $_.Name -ne 'DocumentRule' -and $_.Name -ne 'ManualRule'}).Name
 
-    $configurationDocumentPath = "$TestDrive\localhost.mof"
+    $configurationDocumentPath = "$env:TEMP\localhost.mof"
     $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 
     foreach ($ruleName in $ruleNames)
@@ -106,7 +106,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
             }
 
             # Gets the mof content
-            $configurationDocumentPath = "$TestDrive\localhost.mof"
+            $configurationDocumentPath = "$env:TEMP\localhost.mof"
             $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 
             $dscMof = @($instances | Where-Object -FilterScript {$PSItem.ResourceID -match "\[Skip\]"})
@@ -122,7 +122,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
             }
 
             # Gets the mof content
-            $configurationDocumentPath = "$TestDrive\localhost.mof"
+            $configurationDocumentPath = "$env:TEMP\localhost.mof"
             $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 
             # Counts how many Skips there are and how many there Should -be.
@@ -139,7 +139,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
                 {& $technologyConfig @testParameterList -SkipRuleType $skipRuleType} | Should -Not -Throw
             }
             # Gets the mof content
-            $configurationDocumentPath = "$TestDrive\localhost.mof"
+            $configurationDocumentPath = "$env:TEMP\localhost.mof"
             $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 
             # Counts how many Skips there are and how many there Should -be.
@@ -155,7 +155,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
                 {& $technologyConfig @testParameterList -SkipRuleType $skipRuleTypeMultiple} | Should -Not -Throw
             }
             # Gets the mof content
-            $configurationDocumentPath = "$TestDrive\localhost.mof"
+            $configurationDocumentPath = "$env:TEMP\localhost.mof"
             $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 
             # Counts how many Skips there are and how many there Should -be.
@@ -171,7 +171,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
                 {& $technologyConfig @testParameterList -SkipRuleSeverity $singleSkipRuleSeverity} | Should -Not -Throw
             }
             # Gets the mof content
-            $configurationDocumentPath = "$TestDrive\localhost.mof"
+            $configurationDocumentPath = "$env:TEMP\localhost.mof"
             $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 
             # Counts how many Skips there are and how many there Should -be.
@@ -187,7 +187,7 @@ Describe ($title + " $($stig.StigVersion) mof output") {
                 {& $technologyConfig @testParameterList -SkipRuleSeverity $multipleSkipRuleSeverity} | Should -Not -Throw
             }
             # Gets the mof content
-            $configurationDocumentPath = "$TestDrive\localhost.mof"
+            $configurationDocumentPath = "$env:TEMP\localhost.mof"
             $instances = [Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances($configurationDocumentPath, 4)
 
             # Counts how many Skips there are and how many there Should -be.

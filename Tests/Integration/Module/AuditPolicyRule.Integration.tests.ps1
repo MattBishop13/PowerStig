@@ -16,7 +16,7 @@ Account Management -&gt; Computer Account Management - Success'
 
     Describe 'Audit Policy Conversion' {
         [xml] $stigRule = Get-TestStigRule -CheckContent $checkContent -XccdfTitle Windows
-        $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+        $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
         $stigRule.Save( $TestFile )
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 

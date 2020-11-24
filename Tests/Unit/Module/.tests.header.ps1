@@ -4,7 +4,7 @@ $script:buildOutput = Join-Path -Path $script:projectRoot -ChildPath 'output'
 $script:manifestPath = (Get-ChildItem -Path $script:buildOutput -Filter 'PowerStig.psd1' -Recurse)
 $script:moduleRoot = Split-Path -Path ($script:manifestPath).FullName -Parent
 $psStackCommand = (Get-PSCallStack)[1].Command -replace '\.tests\.ps1'
-$TestDrive = $env:TEMP
+$env:TEMP = $env:TEMP
 
 if ($psStackCommand -ne 'Convert.CommonTests.ps1')
 {

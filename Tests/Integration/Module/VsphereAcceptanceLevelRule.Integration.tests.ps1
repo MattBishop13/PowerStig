@@ -38,7 +38,7 @@ try
                 param ($Level, $CheckContent, $FixText)
 
                 [xml] $stigRule = Get-TestStigRule -CheckContent $CheckContent -FixText $FixText -XccdfTitle 'Vsphere'
-                $testFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+                $testFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 

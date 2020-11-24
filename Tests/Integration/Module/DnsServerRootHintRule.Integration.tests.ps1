@@ -24,7 +24,7 @@ If "Root Hints" is not empty and the entries on the "Root Hints" tab under "Name
 
         Context 'Root hints' {
             [xml] $stigRule = Get-TestStigRule -CheckContent $rootHintsCheckContent -XccdfTitle 'Domain Name System'
-            $TestFile = Join-Path -Path $TestDrive -ChildPath 'TextData.xml'
+            $TestFile = Join-Path -Path $env:TEMP -ChildPath 'TextData.xml'
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 

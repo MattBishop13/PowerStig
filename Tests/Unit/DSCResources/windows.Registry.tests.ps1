@@ -197,10 +197,10 @@ Describe 'Registry call' {
             It 'Should not throw' {
                 function Select-Rule {}
                 Mock Select-Rule -MockWith {$rule.testXml.Rule}
-                { & Registry_config -OutputPath $TestDrive } | Should Not Throw
+                { & Registry_config -OutputPath $env:TEMP } | Should Not Throw
             }
 
-            $instance = ([Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances("$TestDrive\localhost.mof", 4))[0]
+            $instance = ([Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances("$env:TEMP\localhost.mof", 4))[0]
 
             It 'Should set the correct Ensure flag' {
                 $instance.Ensure | Should -be $rule.Ensure

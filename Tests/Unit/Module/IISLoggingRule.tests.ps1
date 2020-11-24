@@ -112,7 +112,7 @@ try
             It 'Should extract a complex LogCustomFieldEntry' {
                 $stigRule = Get-TestStigRule -CheckContent $testRule.checkContent -ReturnGroupOnly
                 $convertedRule = [IISLoggingRuleConvert]::new($stigRule)
-                $convertedRule.LogCustomFieldEntry | ConvertTo-Json | Should -Be $testRule.LogCustomFieldEntry
+                $convertedRule.LogCustomFieldEntry | ConvertTo-Json | Should -be $testRule.LogCustomFieldEntry
             }
         }
         #endregion

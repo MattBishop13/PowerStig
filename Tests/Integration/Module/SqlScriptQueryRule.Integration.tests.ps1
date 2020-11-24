@@ -27,7 +27,7 @@ try
             In the following, replace # with a trace ID being used for the auditing requirements.
             From the query prompt:
             SELECT DISTINCT(eventid) FROM sys.fn_trace_geteventinfo(#);
-            The following required event IDs should be listed:
+            The following required event IDs Should -be listed:
             14, 15, 18, 20,
             102, 103, 104, 105, 106, 107, 108, 109, 110,
             111, 112, 113, 115, 116, 117, 118,
@@ -38,7 +38,7 @@ try
             If any of the audit event IDs required above is not listed, this is a finding.
             Notes:
             1. It is acceptable to have the required event IDs spread across multiple traces, provided all of the traces are always active, and the event IDs are grouped in a logical manner.
-            2. It is acceptable, from an auditing point of view, to include the same event IDs in multiple traces.  However, the effect of this redundancy on performance, storage, and the consolidation of audit logs into a central repository, should be taken into account.
+            2. It is acceptable, from an auditing point of view, to include the same event IDs in multiple traces.  However, the effect of this redundancy on performance, storage, and the consolidation of audit logs into a central repository, Should -be taken into account.
             3. It is acceptable to trace additional event IDs. This is the minimum list.
             4. Once this check is satisfied, the DBA may find it useful to disable or modify the default trace that is set up by the SQL Server installation process. (Note that the Fix does NOT include code to do this.)
             Use the following query to obtain a list of all event IDs, and their meaning:
@@ -135,10 +135,10 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return a SqlScriptQueryRule Object' {
-                $rule.GetType() | Should Be 'SqlScriptQueryRule'
+                $rule.GetType() | Should -be 'SqlScriptQueryRule'
             }
             It "Should return ConfigSection '$($stig.ConfigSection)'" {
-                $rule.ConfigSection | Should Be $stig.ConfigSection
+                $rule.ConfigSection | Should -be $stig.ConfigSection
             }
 
             It 'Should return SqlScriptQueryRule GetScript' {
@@ -147,7 +147,7 @@ try
                     $rule.GetScript = $rule.GetScript -replace "<", "&lt;" -replace ">", "&gt;"
                 }
 
-                $rule.GetScript | Should Be $stig.GetScript
+                $rule.GetScript | Should -be $stig.GetScript
             }
 
             It 'Should return SqlScriptQueryRule TestScript' {
@@ -156,7 +156,7 @@ try
                     $rule.TestScript = $rule.TestScript -replace "<", "&lt;" -replace ">", "&gt;"
                 }
 
-                $rule.TestScript | Should Be $stig.TestScript
+                $rule.TestScript | Should -be $stig.TestScript
             }
 
             It 'Should return SqlScriptQueryRule SetScript' {
@@ -165,13 +165,13 @@ try
                     $rule.SetScript = $rule.SetScript -replace "<", "&lt;" -replace ">", "&gt;"
                 }
 
-                $rule.SetScript | Should Be $stig.SetScript
+                $rule.SetScript | Should -be $stig.SetScript
             }
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be 'SqlScriptQuery'
+                $rule.DscResource | Should -be 'SqlScriptQuery'
             }
             It 'Should Set the status to pass' {
-                $rule.ConversionStatus | Should Be 'pass'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

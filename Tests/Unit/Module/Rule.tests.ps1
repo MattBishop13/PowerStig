@@ -13,16 +13,16 @@ try
         Describe "$($stig.GetType().Name) Base Class" {
 
             It 'Should return the rule Id' {
-                $stig.id | Should Be 'V-1000'
+                $stig.id | Should -be 'V-1000'
             }
             It 'Should return the Severity' {
-                $stig.severity | Should Be 'medium'
+                $stig.severity | Should -be 'medium'
             }
             It 'Should return the Title' {
-                $stig.title | Should Be 'Sample Title'
+                $stig.title | Should -be 'Sample Title'
             }
             It 'Should return the default status of pass' {
-                $stig.conversionstatus | Should Be 'pass'
+                $stig.conversionstatus | Should -be 'pass'
             }
             It 'Should return the raw string' {
                 $stig.rawString | Should Not BeNullOrEmpty
@@ -31,13 +31,13 @@ try
                 $stig.rawString | Should Not Match '&\w+;'
             }
             It 'Should set IsNullOrEmptyt to false by default' {
-                $stig.IsNullOrEmpty | Should Be $false
+                $stig.IsNullOrEmpty | Should -be $false
             }
             It 'Should set OrganizationValueRequired to false by default' {
-                $stig.OrganizationValueRequired | Should Be $false
+                $stig.OrganizationValueRequired | Should -be $false
             }
             It 'Should OrganizationValueTestString to empty by default' {
-                $stig.OrganizationValueTestString | Should BeNullOrEmpty
+                $stig.OrganizationValueTestString | Should -beNullOrEmpty
             }
 
             Context 'Methods' {
@@ -47,7 +47,7 @@ try
                 foreach ( $method in $stigClassMethodNames )
                 {
                     It "Should have a method named '$method'" {
-                        ( $stig | Get-Member -Name $method -Force ).Name | Should Be $method
+                        ( $stig | Get-Member -Name $method -Force ).Name | Should -be $method
                     }
                 }
             }
@@ -59,7 +59,7 @@ try
                 foreach ( $method in $staticMethods )
                 {
                     It "Should have a method named '$method'" {
-                        ( [Rule] | Get-Member -Static -Name $method -Force ).Name | Should Be $method
+                        ( [Rule] | Get-Member -Static -Name $method -Force ).Name | Should -be $method
                     }
                 }
                 # If new methods are added this will catch them so test coverage can be added
@@ -67,7 +67,7 @@ try
                     $memberPlanned = $staticMethods + @('Equals', 'new', 'ReferenceEquals')
                     $memberActual = ( [Rule] | Get-Member -Static -MemberType Method -Force ).Name
                     $compare = Compare-Object -ReferenceObject $memberActual -DifferenceObject $memberPlanned
-                    $compare.Count | Should Be 0
+                    $compare.Count | Should -be 0
                 }
             }
         }
@@ -84,9 +84,9 @@ try
             [string[]] $splitCheckContent = [Rule]::SplitCheckContent( $checkContent )
 
             It 'Should trim strings and remove empty lines' {
-                $splitCheckContent[0] | Should Be 'Line 1'
-                $splitCheckContent[1] | Should Be 'Line 2'
-                $splitCheckContent[2] | Should BeNullOrEmpty
+                $splitCheckContent[0] | Should -be 'Line 1'
+                $splitCheckContent[1] | Should -be 'Line 2'
+                $splitCheckContent[2] | Should -beNullOrEmpty
             }
         }
 
@@ -98,17 +98,17 @@ try
             Context 'Test-HtmlEncoding' {
 
                 It 'Should return true when encoded characters are found' {
-                    Test-HtmlEncoding -CheckString $encodedString  | Should Be $true
+                    Test-HtmlEncoding -CheckString $encodedString  | Should -be $true
                 }
                 It 'Should return false when encoded characters are found' {
-                    Test-HtmlEncoding -CheckString $decodedString  | Should Be $false
+                    Test-HtmlEncoding -CheckString $decodedString  | Should -be $false
                 }
             }
 
             Context 'Test-HtmlEncoding' {
 
                 It 'Should decode html encoding' {
-                    ConvertFrom-HtmlEncoding -CheckString $encodedString | Should Be $decodedString
+                    ConvertFrom-HtmlEncoding -CheckString $encodedString | Should -be $decodedString
                 }
             }
         }
@@ -127,7 +127,7 @@ try
                 It "Should return AccountPolicyRule when 'Account Policies' is found" {
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'AccountPolicyRule'
+                    $testResults[0].GetType().Name | Should -be 'AccountPolicyRule'
                 }
             }
 
@@ -145,12 +145,12 @@ try
                 It "Should return 'AuditPolicyRule' when 'auditpol.exe' is found" {
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'AuditPolicyRule'
+                    $testResults[0].GetType().Name | Should -be 'AuditPolicyRule'
                 }
                 It "Should return 'ManualRule' when 'resourceSACL' is found" {
                     $rule = Get-TestStigRule -CheckContent ($checkContent + 'resourceSACL') -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'ManualRule'
+                    $testResults[0].GetType().Name | Should -be 'ManualRule'
                 }
                 It "Should NOT return 'AuditPolicyRule' when 'SCENoApplyLegacyAuditPolicy' is found" {
                     $rule = Get-TestStigRule -CheckContent ($checkContent + 'SCENoApplyLegacyAuditPolicy') -ReturnGroupOnly
@@ -164,7 +164,7 @@ try
                 It "Should return 'DnsServerSettingRule' when only 'dnsmgmt.msc' is found" {
                     $rule = Get-TestStigRule -CheckContent 'dnsmgmt.msc' -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'DnsServerSettingRule'
+                    $testResults[0].GetType().Name | Should -be 'DnsServerSettingRule'
                 }
                 It "Should not return 'DnsServerSettingRule' when 'dnsmgmt.msc and 'Forward Lookup Zones is found" {
                     $rule = Get-TestStigRule -CheckContent 'dnsmgmt.msc and Forward Lookup Zones' -ReturnGroupOnly
@@ -180,7 +180,7 @@ try
                 It "Should return 'DocumentRule' when 'Document' is found" {
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'DocumentRule'
+                    $testResults[0].GetType().Name | Should -be 'DocumentRule'
                 }
             }
 
@@ -189,7 +189,7 @@ try
                     $checkContent = 'none of this matches'
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'ManualRule'
+                    $testResults[0].GetType().Name | Should -be 'ManualRule'
                 }
             }
 
@@ -198,7 +198,7 @@ try
                     $checkContent = 'permissions'
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'PermissionRule'
+                    $testResults[0].GetType().Name | Should -be 'PermissionRule'
                 }
                 It "Should Not return 'PermissionRule' when 'Verify the permissions on Group Policy objects' is found" {
                     $checkContent = 'Verify the permissions on Group Policy objects'
@@ -225,7 +225,7 @@ try
                     Value: 0'
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'RegistryRule'
+                    $testResults[0].GetType().Name | Should -be 'RegistryRule'
                 }
                 It "Should Not return 'RegistryRule' when 'Permission' is found" {
                     $checkContent = 'Hive: HKEY_LOCAL_MACHINE Permission'
@@ -244,7 +244,7 @@ try
                 It "Should return 'SecurityOptionRule' when 'gpedit and Security Option' is found" {
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'SecurityOptionRule'
+                    $testResults[0].GetType().Name | Should -be 'SecurityOptionRule'
                 }
                 It "Should Not return 'SecurityOptionRule' when 'gpedit and Account Policy' are found" {
                     $checkContent = 'gpedit and Account Policy'
@@ -265,7 +265,7 @@ try
                     $checkContent = 'services.msc'
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'ServiceRule'
+                    $testResults[0].GetType().Name | Should -be 'ServiceRule'
                 }
                 It "Should Not return 'ServiceRule' when 'Required Services' is found" {
                     $checkContent = 'Required Services'
@@ -290,7 +290,7 @@ try
                 It "Should return 'UserRightRule' when 'gpedit and Security Option' is found" {
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'UserRightRule'
+                    $testResults[0].GetType().Name | Should -be 'UserRightRule'
                 }
                 It "Should Not return 'UserRightRule' when 'gpedit and Account Policy' are found" {
                     $checkContent = 'gpedit and Account Policy'
@@ -311,13 +311,13 @@ try
                     $checkContent = 'Get-WindowsFeature'
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'WindowsFeatureRule'
+                    $testResults[0].GetType().Name | Should -be 'WindowsFeatureRule'
                 }
                 It "Should return 'WindowsFeatureRule' when 'Get-WindowsOptionalFeature' is found" {
                     $checkContent = 'Get-WindowsOptionalFeature'
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'WindowsFeatureRule'
+                    $testResults[0].GetType().Name | Should -be 'WindowsFeatureRule'
                 }
             }
 
@@ -326,7 +326,7 @@ try
                     $checkContent = 'eventvwr.msc applications and Services Logs\Microsoft\Windows\DNS Server'
                     $rule = Get-TestStigRule -CheckContent $checkContent -ReturnGroupOnly
                     $testResults = [ConvertFactory]::Rule( $rule )
-                    $testResults[0].GetType().Name | Should Be 'WinEventLogRule'
+                    $testResults[0].GetType().Name | Should -be 'WinEventLogRule'
                 }
                 It "Should Not return 'WinEventLogRule' when only 'eventvwr.msc' is found" {
                     $checkContent = 'eventvwr.msc'

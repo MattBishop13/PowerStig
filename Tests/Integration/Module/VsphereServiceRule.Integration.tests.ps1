@@ -33,12 +33,12 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name   | Should -Be 'VsphereServiceRule'
-                $rule.Key              | Should -Be $Key
-                $rule.Policy           | Should -Be $Policy
-                $rule.Running          | Should -Be $Running
-                $rule.DscResource      | Should -Be 'VMHostService'
-                $rule.ConversionStatus | Should -Be 'pass'
+                $rule.GetType().Name   | Should -be 'VsphereServiceRule'
+                $rule.Key              | Should -be $Key
+                $rule.Policy           | Should -be $Policy
+                $rule.Running          | Should -be $Running
+                $rule.DscResource      | Should -be 'VMHostService'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

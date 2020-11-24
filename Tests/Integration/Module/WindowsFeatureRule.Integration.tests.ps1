@@ -77,32 +77,32 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return an WindowsFeatureRule Object' {
-                $rule.GetType() | Should Be 'WindowsFeatureRule'
+                $rule.GetType() | Should -be 'WindowsFeatureRule'
             }
             It "Should set Feature Name to '$($testString.Name)'" {
-                $rule.Name | Should Be $testString.Name
+                $rule.Name | Should -be $testString.Name
             }
             It "Should set Install State to '$($testString.Ensure)'" {
-                $rule.Ensure | Should Be $testString.Ensure
+                $rule.Ensure | Should -be $testString.Ensure
             }
             It "Should set OrganizationValueRequired to $($testString.OrganizationValueRequired)" {
-                $rule.OrganizationValueRequired | Should Be $testString.OrganizationValueRequired
+                $rule.OrganizationValueRequired | Should -be $testString.OrganizationValueRequired
             }
             It "Should set OrganizationValueTestString to $($testString.OrganizationValueTestString)" {
-                $rule.OrganizationValueTestString | Should Be $testString.OrganizationValueTestString
+                $rule.OrganizationValueTestString | Should -be $testString.OrganizationValueTestString
             }
             It 'Should Set the status to pass' {
-                $rule.conversionstatus | Should Be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
             It 'Should set the correct DscResource' {
 
                 if ($stigRule.Benchmark.title -match 'Windows 10')
                 {
-                    $rule.DscResource | Should Be 'WindowsOptionalFeature'
+                    $rule.DscResource | Should -be 'WindowsOptionalFeature'
                 }
                 else
                 {
-                    $rule.DscResource | Should Be 'WindowsFeature'
+                    $rule.DscResource | Should -be 'WindowsFeature'
                 }
             }
         }

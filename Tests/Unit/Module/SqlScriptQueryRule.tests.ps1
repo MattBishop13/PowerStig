@@ -20,7 +20,7 @@ try
                 In the following, replace # with a trace ID being used for the auditing requirements.
                 From the query prompt:
                 SELECT DISTINCT(eventid) FROM sys.fn_trace_geteventinfo(#);
-                The following required event IDs should be listed:
+                The following required event IDs Should -be listed:
                 14, 15, 18, 20,
                 102, 103, 104, 105, 106, 107, 108, 109, 110,
                 111, 112, 113, 115, 116, 117, 118,
@@ -32,7 +32,7 @@ try
                 Notes:
                 1. It is acceptable to have the required event IDs spread across multiple traces, provided all of the traces are always active, and the event IDs are grouped in a logical manner.
                 2. It is acceptable, from an auditing point of view, to include the same event IDs in multiple traces.  However, the effect of this redundancy on performance, storage, and the consolidation `
-                of audit logs into a central repository, should be taken into account.
+                of audit logs into a central repository, Should -be taken into account.
                 3. It is acceptable to trace additional event IDs. This is the minimum list.
                 4. Once this check is satisfied, the DBA may find it useful to disable or modify the default trace that is set up by the SQL Server installation process. (Note that the Fix does NOT include `
                 code to do this.)
@@ -200,7 +200,7 @@ try
                 NOTE:  Microsoft has flagged the trace techniques and tools used in this STIG as deprecated. They will be removed at some point after SQL Server 2014. The replacement feature is Extended Events. If Extended Events are in use and configured to satisfy this requirement, this is not a finding.  The following code can be used to check Extended Events settings.
                 /**********************************
                 Check to verify shutdown on failure is set.
-                The following settings are what should be returned:
+                The following settings are what Should -be returned:
                 name = &lt;name of audit&gt;
                 on_failure = 1
                 on_failure_desc = SHUTDOWN SERVER INSTANCE
@@ -320,7 +320,7 @@ try
 
                 Context "'$ruleType' Get-SqlRuleType" {
                     It "Should return $($rule)" {
-                        $ruleType | Should Be $rule
+                        $ruleType | Should -be $rule
                     }
                 }
 
@@ -328,7 +328,7 @@ try
                     $getScript = $sqlScriptQueryRule.$($ruleType).GetScript
                     It "Should return a $($ruleType) GetScript" {
                         $result = & Get-$($ruleType)GetScript -CheckContent $checkContent
-                        $result | Should be $getScript
+                        $result | Should -be $getScript
                     }
                 }
 
@@ -337,7 +337,7 @@ try
 
                     It "Should return a $($ruleType) TestScript" {
                         $result = & Get-$($ruleType)TestScript -CheckContent $checkContent
-                        $result | Should be $testScript
+                        $result | Should -be $testScript
                     }
                 }
 
@@ -347,7 +347,7 @@ try
                     It "Should return a $($ruleType) SetScript" {
                         $checkContent = Split-TestStrings -CheckContent $sqlScriptQueryRule.$($ruleType).CheckContent
                         $result = & Get-$($ruleType)SetScript -FixText $fixText -CheckContent $checkContent
-                        $result | Should be $setScript
+                        $result | Should -be $setScript
                     }
                 }
             }
@@ -358,7 +358,7 @@ try
                 $query = Get-Query -CheckContent $checkContent
 
                 It 'Should return 3 queries' {
-                    $query.Count | Should be 3
+                    $query.Count | Should -be 3
                 }
             }
 
@@ -368,7 +368,7 @@ try
                 $query = Get-SQLQuery -CheckContent $checkContent
 
                 It 'Should return 3 queries' {
-                    $query.Count | Should be 3
+                    $query.Count | Should -be 3
                 }
             }
 
@@ -381,12 +381,12 @@ try
                 $traceIdQuery = Get-TraceIdQuery -EventId $eventId
 
                 It 'Should return Trace Id Query' {
-                    $traceIdQuery | Should be ($traceSetScript[0])
+                    $traceIdQuery | Should -be ($traceSetScript[0])
                 }
 
                 $eventId = Get-EventIdData -CheckContent $checkContent
                 It 'Should return Event Id Data' {
-                    $eventId | Should be $sqlScriptQueryRule.Trace.EventId
+                    $eventId | Should -be $sqlScriptQueryRule.Trace.EventId
                 }
             }
         }

@@ -97,28 +97,28 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return an UserRightRule Object' {
-                $rule.GetType() | Should Be 'UserRightRule'
+                $rule.GetType() | Should -be 'UserRightRule'
             }
             It 'Should extract the correct DisplayName' {
-                $rule.DisplayName | Should Be $testRule.displayName
+                $rule.DisplayName | Should -be $testRule.displayName
             }
             It 'Should return the correct Constant' {
-                $rule.Constant | Should Be $testRule.constant
+                $rule.Constant | Should -be $testRule.constant
             }
             It 'Should extract the correct identity' {
-                $rule.Identity | Should Be $testRule.Identity
+                $rule.Identity | Should -be $testRule.Identity
             }
             It 'Should not have OrganizationValueRequired set' {
-                $rule.OrganizationValueRequired | Should Be $testRule.organizationValueRequired
+                $rule.OrganizationValueRequired | Should -be $testRule.organizationValueRequired
             }
             It 'Should have the correct test string' {
-                $rule.OrganizationValueTestString | Should Be $testRule.organizationValueTestString
+                $rule.OrganizationValueTestString | Should -be $testRule.organizationValueTestString
             }
             It "Should set the correct DscResource" {
-                $rule.DscResource | Should Be 'UserRightsAssignment'
+                $rule.DscResource | Should -be 'UserRightsAssignment'
             }
             It 'Should Set the status to pass' {
-                $rule.conversionstatus | Should Be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
     }

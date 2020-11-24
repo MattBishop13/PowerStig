@@ -35,16 +35,16 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return an SslSettingsRule Object' {
-                $rule.GetType() | Should Be 'SslSettingsRule'
+                $rule.GetType() | Should -be 'SslSettingsRule'
             }
             It "Should return Value '$($stig.Value)'" {
-                $rule.Value | Should Be $stig.Value
+                $rule.Value | Should -be $stig.Value
             }
             It "Should set the correct DscResource" {
-                $rule.DscResource | Should Be 'xSslSettings'
+                $rule.DscResource | Should -be 'xSslSettings'
             }
             It 'Should Set the status to pass' {
-                $rule.ConversionStatus | Should Be 'pass'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

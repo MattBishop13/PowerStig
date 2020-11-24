@@ -61,20 +61,20 @@ try
             $global:stigXccdfName = $fileContentRule.ArchiveFile
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
-            It 'Should be a FileContentRule' {
-                $rule.GetType() | Should Be 'FileContentRule'
+            It 'Should -be a FileContentRule' {
+                $rule.GetType() | Should -be 'FileContentRule'
             }
 
             It "Should return Key:'$($fileContentRule.Key)'" {
-                $rule.Key | Should Be $fileContentRule.Key
+                $rule.Key | Should -be $fileContentRule.Key
             }
 
             It "Should return Value:'$($fileContentRule.Value)'" {
-                $rule.Value | Should Be $fileContentRule.Value
+                $rule.Value | Should -be $fileContentRule.Value
             }
 
             It "Should have a DscResource of '$($fileContentRule.DscResource)'" {
-                $rule.DscResource | Should Be $fileContentRule.DscResource
+                $rule.DscResource | Should -be $fileContentRule.DscResource
             }
         }
     }

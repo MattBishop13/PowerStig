@@ -13,10 +13,10 @@ try
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 
         It 'Should return an ManualRule Object' {
-            $rule.GetType() | Should Be 'ManualRule'
+            $rule.GetType() | Should -be 'ManualRule'
         }
         It "Should set the correct DscResource" {
-            $rule.DscResource | Should Be 'None'
+            $rule.DscResource | Should -be 'None'
         }
     }
 }

@@ -61,10 +61,10 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name   | Should -Be 'VsphereAdvancedSettingsRule'
-                $rule.AdvancedSettings | Should -Be $AdvancedSettings
-                $rule.DscResource      | Should -Be 'VMHostAdvancedSettings'
-                $rule.ConversionStatus | Should -Be 'pass'
+                $rule.GetType().Name   | Should -be 'VsphereAdvancedSettingsRule'
+                $rule.AdvancedSettings | Should -be $AdvancedSettings
+                $rule.DscResource      | Should -be 'VMHostAdvancedSettings'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

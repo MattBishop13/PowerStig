@@ -31,25 +31,25 @@ Describe 'New-StigCheckList' {
     $mofTest = '{0}{1}' -f $TestDrive.fullname,"\localhost.mof"
 
     # Test parameter validity -OutputPath
-    It 'Should throw if an invalid path is provided' {
+    It 'SHould -Throw if an invalid path is provided' {
         {New-StigCheckList -MofFile 'test' -XccdfPath 'test' -OutputPath 'c:\asdf'} | Should -Throw
     }
 
-    It 'Should throw if the full path to a .ckl file is not provided' {
+    It 'SHould -Throw if the full path to a .ckl file is not provided' {
         {New-StigCheckList -MofFile 'test' -XccdfPath 'test' -OutputPath 'c:\test\test.ck'} | Should -Throw
     }
 
     # Test parameter -ManualCheckFile
-    It 'Should throw if the full path to a ManualCheckFile is not valid' {
+    It 'SHould -Throw if the full path to a ManualCheckFile is not valid' {
         {New-StigCheckList -MofFile 'test' -XccdfPath 'test' -ManualCheckFile 'broken' -OutputPath 'c:\test\test.ck'} | Should -Throw
     }
 
     # Test invalid parameter combinations
-    It 'Should throw if an invalid combination of parameters for assessment is provided' {
+    It 'SHould -Throw if an invalid combination of parameters for assessment is provided' {
         {New-StigChecklist -MofFile 'test' -DscResults 'test' -XccdfPath 'test' -OutputPath 'C:\test'} | should -Throw
     }
 
-    It 'Should throw if an invalid combination of parameters for Xccdf validation is provided' {
+    It 'SHould -Throw if an invalid combination of parameters for Xccdf validation is provided' {
         {New-StigCheckList -DscResult 'foo' -MofFile 'bar' -OutputPath 'C:\Test'} | Should -Throw
     }
 
@@ -101,20 +101,20 @@ Describe 'ConvertTo-ManualCheckListHashTable' {
 
     It 'Should convert xml content into a hashtable' {
         $convertedXmlHashTable = ConvertTo-ManualCheckListHashTable -Path (Join-Path -Path $TestDrive -ChildPath 'test.xml') -XccdfPath 'C:\bogusXccdf.xml'
-        $convertedXmlHashTable.Keys.Count | Should -Be $xmlHashTableResult.Keys.Count
+        $convertedXmlHashTable.Keys.Count | Should -be $xmlHashTableResult.Keys.Count
         foreach ($key in $convertedXmlHashTable.Keys)
         {
-            $convertedXmlHashTable[$key] | Should -Be $xmlHashTableResult[$key]
+            $convertedXmlHashTable[$key] | Should -be $xmlHashTableResult[$key]
         }
     }
 
     It 'Should convert specifically formatted psd1 content into a hashtable' {
         Mock Get-StigXccdfFileName {return 'U_Windows_Firewall_STIG_V1R7_Manual-xccdf.xml'}
         $convertedPsd1HashTable = ConvertTo-ManualCheckListHashTable -Path (Join-Path -Path $TestDrive -ChildPath 'test.psd1') -XccdfPath 'C:\bogusXccdf.xml'
-        $convertedPsd1HashTable.Keys.Count | Should -Be $psd1HashTableResult.Keys.Count
+        $convertedPsd1HashTable.Keys.Count | Should -be $psd1HashTableResult.Keys.Count
         foreach ($key in $convertedPsd1HashTable.Keys)
         {
-            $convertedPsd1HashTable[$key] | Should -Be $psd1HashTableResult[$key]
+            $convertedPsd1HashTable[$key] | Should -be $psd1HashTableResult[$key]
         }
     }
 }
@@ -124,6 +124,6 @@ Describe 'Get-StigXccdfFileName' {
         Mock Get-Content {return '<DISASTIG filename="U_Windows_Firewall_STIG_V1R7_Manual-xccdf.xml" fullversion="1.8"></DISASTIG>'}
         Mock Select-String {return [PSCustomObject]@{Path = 'C:\test\U_Windows_Firewall_STIG_V1R7_Manual-xccdf.xml'; Pattern = 'V-1111'}}
         $getStigXccdfFileNameResult = Get-StigXccdfFileName -VulnId 'V-1111' -XccdfPath 'C:\test\U_Windows_Firewall_STIG_V1R7_Manual-xccdf.xml'
-        $getStigXccdfFileNameResult | Should -Be 'U_Windows_Firewall_STIG_V1R7_Manual-xccdf.xml'
+        $getStigXccdfFileNameResult | Should -be 'U_Windows_Firewall_STIG_V1R7_Manual-xccdf.xml'
     }
 }

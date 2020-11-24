@@ -21,22 +21,22 @@ Account Management -&gt; Computer Account Management - Success'
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 
         It 'Should return an AuditPolicyRule Object' {
-            $rule.GetType() | Should Be 'AuditPolicyRule'
+            $rule.GetType() | Should -be 'AuditPolicyRule'
         }
         It 'Should extract the correct SubCategory' {
-            $rule.SubCategory | Should Be 'Computer Account Management'
+            $rule.SubCategory | Should -be 'Computer Account Management'
         }
         It 'Should extract the correct AuditFlag' {
-            $rule.AuditFlag | Should be 'Success'
+            $rule.AuditFlag | Should -be 'Success'
         }
         It 'Should set the correct ensure value' {
-            $rule.Ensure | Should be 'Present'
+            $rule.Ensure | Should -be 'Present'
         }
         It 'Should set the correct DscResource' {
-            $rule.DscResource | Should Be 'AuditPolicySubcategory'
+            $rule.DscResource | Should -be 'AuditPolicySubcategory'
         }
         It 'Should set the Conversion statud to pass ensure value' {
-            $rule.conversionstatus | Should be 'pass'
+            $rule.conversionstatus | Should -be 'pass'
         }
     }
 }

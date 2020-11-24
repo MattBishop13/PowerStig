@@ -8,20 +8,20 @@ Describe 'Common Tests - Configuration Module Requirements' {
     Context "$script:DSCModuleName module manifest properties" {
 
         It 'Should contain a module manifest that aligns to the folder and module names' {
-            Test-Path -Path $manifestPath | Should Be True
+            Test-Path -Path $manifestPath | Should -be True
         }
-        It 'Should be a valid Manifest' {
+        It 'Should -be a valid Manifest' {
             {Microsoft.PowerShell.Core\Test-ModuleManifest -Path $manifestPath } |
             Should Not Throw
         }
         It "Manifest $script:DSCModuleName.psd1 should import as a data file" {
-            $Manifest | Should BeOfType 'Hashtable'
+            $Manifest | Should -beOfType 'Hashtable'
         }
         It 'Should have a GUID in the manifest' {
             $Manifest.GUID | Should Match '[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}'
         }
         It 'Should list a module version in the manifest' {
-            $Manifest.ModuleVersion | Should BeGreaterThan 0.0.0.0
+            $Manifest.ModuleVersion | Should -beGreaterThan 0.0.0.0
         }
         It 'Should list an author in the manifest' {
             $Manifest.Author | Should Not BeNullOrEmpty
@@ -30,10 +30,10 @@ Describe 'Common Tests - Configuration Module Requirements' {
             $Manifest.Description | Should Not BeNullOrEmpty
         }
         It 'Should require PowerShell version 5.0 or later in the manifest' {
-            $Manifest.PowerShellVersion | Should BeGreaterThan 5.0
+            $Manifest.PowerShellVersion | Should -beGreaterThan 5.0
         }
         It 'Should require CLR version 4 or later in the manifest' {
-            $Manifest.CLRVersion | Should BeGreaterThan 4.0
+            $Manifest.CLRVersion | Should -beGreaterThan 4.0
         }
         It 'Should export DscResources in the manifest' {
             $Manifest.DscResourcesToExport | Should Not BeNullOrEmpty
@@ -55,8 +55,8 @@ Describe 'Common Tests - Configuration Module Requirements' {
 
                 $discoveredModule = Find-Module -Name $moduleName -RequiredVersion $ModuleVersion -Repository 'PsGallery'
 
-                $discoveredModule.Name    | Should Be $moduleName
-                $discoveredModule.Version | Should Be $ModuleVersion
+                $discoveredModule.Name    | Should -be $moduleName
+                $discoveredModule.Version | Should -be $ModuleVersion
             }
         }
     }
@@ -69,7 +69,7 @@ Describe 'Composite Resources' {
                         Select-Object -Property BaseName -ExpandProperty BaseName | Sort-Object -Descending
 
     It 'Should have all module resources listed in the manifest' {
-        $manifestDscResourceList | Should Be $moduleDscResourceList
+        $manifestDscResourceList | Should -be $moduleDscResourceList
     }
 
     foreach ($resource in $moduleDscResourceList)
@@ -82,17 +82,17 @@ Describe 'Composite Resources' {
                 $manifestDscResourceList.Where( {$PSItem -eq $resource}) | Should Not BeNullOrEmpty
             }
 
-            It 'Should be a valid manifest' {
+            It 'Should -be a valid manifest' {
                 {Test-ModuleManifest -Path $compositeManifestPath} | Should Not Throw
             }
 
             It 'Should contain a schema module' {
-                Test-Path -Path $compositeSchemaPath | Should Be $true
+                Test-Path -Path $compositeSchemaPath | Should -be $true
             }
 
             It 'Should contain a correctly named configuration' {
                 $configurationName = Get-ConfigurationName -FilePath $compositeSchemaPath
-                $configurationName | Should Be $resource
+                $configurationName | Should -be $resource
             }
         }
     }

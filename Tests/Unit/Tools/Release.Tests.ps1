@@ -23,11 +23,11 @@ try
                 Assert-VerifiableMock
             }
             It "Should return $true when the supplied module version is higher than the master branch manifest" {
-                Test-ModuleVersion -ModuleVersion $moduleVersion -ManifestPath $manifestPath | Should Be $true
+                Test-ModuleVersion -ModuleVersion $moduleVersion -ManifestPath $manifestPath | Should -be $true
             }
             It "Should return $false when the supplied module version is NOT higher than the master branch manifest" {
                 $moduleVersion = '1.0.0.0'
-                Test-ModuleVersion -ModuleVersion $moduleVersion -ManifestPath $manifestPath | Should Be $false
+                Test-ModuleVersion -ModuleVersion $moduleVersion -ManifestPath $manifestPath | Should -be $false
             }
             It "Should import the manifest from `$PWD if a ManifestPath is not provided" {
                 $mockGetChildItem = @{FullName = $manifestPath}
@@ -45,9 +45,9 @@ try
                 'Source' = 'C:\Program Files\Git\cmd\git.exe'
             }
 
-            It 'Should Throw if Git is not installed' {
+            It 'SHould -Throw if Git is not installed' {
                 Mock -CommandName Get-Command -MockWith { return $null }
-                { Get-PowerStigRepository } | Should Throw
+                { Get-PowerStigRepository } | SHould -Throw
             }
 
             $repositoryList = @(
@@ -77,20 +77,20 @@ try
                 $PowerStigRepository = Get-PowerStigRepository
 
                 It 'Should return the correct name' {
-                    $PowerStigRepository.name | Should Be $repository.Result.name
+                    $PowerStigRepository.name | Should -be $repository.Result.name
                 }
                 It 'Should return the correct html URL' {
-                    $PowerStigRepository.html_url | Should Be $repository.Result.html_url
+                    $PowerStigRepository.html_url | Should -be $repository.Result.html_url
                 }
                 It 'Should return the correct Api URL' {
-                    $PowerStigRepository.api_url | Should Be $repository.Result.api_url
+                    $PowerStigRepository.api_url | Should -be $repository.Result.api_url
                 }
             }
 
-            It 'Should throw an error if a non PowerStig project is suplied' {
+            It 'SHould -Throw an error if a non PowerStig project is suplied' {
                 $repository = 'https://github.com/Microsoft/NotPowerStig.git'
                 Mock -CommandName Invoke-Git -MockWith { return $repository }
-                { Test-PowerStigRepository } | Should throw
+                { Test-PowerStigRepository } | SHould -Throw
             }
         }
 
@@ -210,7 +210,7 @@ try
             Mock -CommandName Get-Content -MockWith { return $sampleReadme.ToString().Split("`n") }
 
             It 'Should return the unreleased notes trimmed of extra lines' {
-                Get-UnreleasedNotes | Should Be ("Update 1`r`r`nUpdate 2" | Out-String).Trim()
+                Get-UnreleasedNotes | Should -be ("Update 1`r`r`nUpdate 2" | Out-String).Trim()
             }
         }
 
@@ -238,7 +238,7 @@ try
                     Update-Readme -ModuleVersion $moduleVersion
                     $null = $sampleReadme.Insert($unreleased, "`n### $moduleVersion`n")
                     $readmeContent = Get-Content -Path $sampleReadmePath
-                    $readmeContent | Should Be $sampleReadme.ToString()
+                    $readmeContent | Should -be $sampleReadme.ToString()
                 }
             }
 
@@ -255,7 +255,7 @@ try
                     $null = $sampleReadme.Insert($contributors,
                         "`n* [@$($contributorList.login)](https://github.com/$($contributorList.login)) ($($contributorList.Name))`n")
                     $readmeContent = Get-Content -Path $sampleReadmePath
-                    $readmeContent | Should Be $sampleReadme.ToString()
+                    $readmeContent | Should -be $sampleReadme.ToString()
                 }
             }
         }
@@ -269,10 +269,10 @@ try
             $manifest = Import-PowerShellDataFile -Path $manifestPath
 
             It 'Should update the manifest version number' {
-                $manifest.ModuleVersion | Should Be $moduleVersion
+                $manifest.ModuleVersion | Should -be $moduleVersion
             }
             It 'Should update the manifest release notes' {
-                $manifest.PrivateData.PSData.ReleaseNotes | Should Be $releaseNotes
+                $manifest.PrivateData.PSData.ReleaseNotes | Should -be $releaseNotes
             }
         }
 
@@ -331,7 +331,7 @@ try
 
             $list = Get-ProjectContributorList -Repository $repository
             It 'Should return list if user details' {
-                $list[0] | Should Be 'testDetails'
+                $list[0] | Should -be 'testDetails'
             }
         }
 
@@ -366,14 +366,14 @@ try
                 It "Should return '$state' from rest API" {
                     Mock -CommandName Invoke-RestMethod -MockWith { return @{ state = $state } }
                     $status = Get-GitHubRefStatus -Repository $repository -Name test
-                    $status | Should Be $state
+                    $status | Should -be $state
                 }
             }
 
-            It 'Should throw after waiting 10 minutes for a task to complete' {
+            It 'SHould -Throw after waiting 10 minutes for a task to complete' {
                 Mock -CommandName Invoke-RestMethod -MockWith { return @{ state = 'pending' } }
                 Mock -CommandName Start-Sleep -MockWith { continue } -Verifiable
-                { Get-GitHubRefStatus -Repository $repository -Name test -WaitForSuccess } | Should Throw
+                { Get-GitHubRefStatus -Repository $repository -Name test -WaitForSuccess } | SHould -Throw
             }
         }
 
@@ -387,7 +387,7 @@ try
                 -ParameterFilter { $Uri -eq "$($Repository.api_url)/pulls"} -Verifiable
             It 'Should create a PR on GitHub' {
                 $response = New-GitHubPullRequest -Repository $repository -ModuleVersion $moduleVersion -BranchHead 'dev'
-                $response.Status | Should Be '201 Created'
+                $response.Status | Should -be '201 Created'
                 Assert-VerifiableMock
             }
         }
@@ -424,7 +424,7 @@ try
                 Mock -CommandName Invoke-RestMethod -MockWith { return $openPullRequestList } `
                     -ParameterFilter { $Uri -eq "$($Repository.api_url)/pulls"} -Verifiable
                 $response = Get-GitHubPullRequest -Repository $repository -BranchHead 'new-feature1' -BranchBase 'dev'
-                $response.head.ref | Should Be 'new-feature1'
+                $response.head.ref | Should -be 'new-feature1'
                 Assert-VerifiableMock
             }
 
@@ -432,7 +432,7 @@ try
                 Mock -CommandName Invoke-RestMethod -MockWith { return $openPullRequestList[1] } `
                     -ParameterFilter { $Uri -eq "$($Repository.api_url)/pulls/$pullRequestNumber"} -Verifiable
                 $response = Get-GitHubPullRequest -Repository $repository -Number $pullRequestNumber
-                $response.id | Should Be $pullRequestNumber
+                $response.id | Should -be $pullRequestNumber
                 Assert-VerifiableMock
             }
         }
@@ -447,7 +447,7 @@ try
                 -ParameterFilter { $Uri -eq "$($pullRequest.url)/merge"} -Verifiable
             It 'Should create a PR on GitHub' {
                 $response = Approve-GitHubPullRequest -PullRequest $pullRequest -CommitTitle 'Commit Title' -CommitMessage 'Commit Message'
-                $response.merged | Should Be $true
+                $response.merged | Should -be $true
                 Assert-VerifiableMock
             }
         }
@@ -461,7 +461,7 @@ try
                 -ParameterFilter { $Uri -eq "$($repository.api_url)/releases"} -Verifiable
             It 'Should create a release on GitHub' {
                 $response = New-GitHubRelease -Repository $repository -TagName '1.2.3.4-PSGallery' -Title 'Release Title' -Description 'Release Notes'
-                $response.status | Should Be '201 Created'
+                $response.status | Should -be '201 Created'
                 Assert-VerifiableMock
             }
         }
@@ -522,11 +522,11 @@ try
                         Start-PowerStigRelease -GitRepositoryPath $testGitRepositoryPath -ModuleVersion $testModuleVersion
                         Assert-MockCalled -CommandName Test-ModuleVersion
                     }
-                    It 'Should throw if the module version is not greater than currently release' {
+                    It 'SHould -Throw if the module version is not greater than currently release' {
                         Mock -CommandName Test-ModuleVersion -MockWith { $false } `
                             -ParameterFilter { $ModuleVersion -eq $testModuleVersion }
                         {Start-PowerStigRelease -GitRepositoryPath $testGitRepositoryPath -ModuleVersion $testModuleVersion} |
-                            Should Throw
+                            SHould -Throw
                     }
                 }
                 It 'Should create a new release branch' {
@@ -537,10 +537,10 @@ try
                         Start-PowerStigRelease -GitRepositoryPath $testGitRepositoryPath -ModuleVersion $testModuleVersion
                         Assert-MockCalled -CommandName Get-UnreleasedNotes
                     }
-                    It 'Should throw if no release notes are found' {
+                    It 'SHould -Throw if no release notes are found' {
                         Mock -CommandName Get-UnreleasedNotes -MockWith { return '' } -Verifiable
                         {Start-PowerStigRelease -GitRepositoryPath $testGitRepositoryPath -ModuleVersion $testModuleVersion} |
-                            Should Throw
+                            SHould -Throw
                     }
                 }
                 It 'Should update the readme' {
@@ -563,11 +563,11 @@ try
                         Start-PowerStigRelease -GitRepositoryPath $testGitRepositoryPath -ModuleVersion $testModuleVersion
                         Assert-MockCalled -CommandName Get-GitHubRefStatus
                     }
-                    It 'Should throw if the release build status is not success' {
+                    It 'SHould -Throw if the release build status is not success' {
                         Mock -CommandName Get-GitHubRefStatus -MockWith { 'Failed' } `
                             -ParameterFilter { $Name -eq $testReleaseBranchName -and $WaitForSuccess -eq $true }
                         {Start-PowerStigRelease -GitRepositoryPath $testGitRepositoryPath -ModuleVersion $testModuleVersion} |
-                            Should Throw
+                            SHould -Throw
                     }
                 }
                 Context 'Pull request' {
@@ -578,11 +578,11 @@ try
                     It 'Should check the status of the pull request build' {
                         Assert-MockCalled -CommandName Get-GitHubRefStatus -ParameterFilter { $Name -eq $pullRequest.head.sha -and $WaitForSuccess -eq $true }
                     }
-                    It 'Should throw if the pull request build status is not success' {
+                    It 'SHould -Throw if the pull request build status is not success' {
                         Mock -CommandName Get-GitHubRefStatus -MockWith { 'Failed' } `
                             -ParameterFilter { $Name -eq $pullRequest.head.sha -and $WaitForSuccess -eq $true }
                         {Start-PowerStigRelease -GitRepositoryPath $testGitRepositoryPath -ModuleVersion $testModuleVersion} |
-                            Should Throw
+                            SHould -Throw
                     }
                 }
             }
@@ -768,8 +768,8 @@ try
                 $fileInfo = Get-ChildItem -Path 'TestDrive:\FILEHASH.md'
                 $fileContent = Get-Content -Path 'TestDrive:\FILEHASH.md'
                 $shouldBeContent = '| StigTestFile.xml | 832A2A0F2EFF192EDB189E577753691143A50B674B14B68961FC08761F1DE81E | 8414 |'
-                $fileInfo.Name | Should Be 'FILEHASH.md'
-                $fileContent -contains $shouldBeContent | Should Be $true
+                $fileInfo.Name | Should -be 'FILEHASH.md'
+                $fileContent -contains $shouldBeContent | Should -be $true
             }
         }
     }

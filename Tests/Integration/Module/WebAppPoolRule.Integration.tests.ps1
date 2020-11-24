@@ -47,19 +47,19 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return an WebAppPoolRule Object' {
-                $rule.GetType() | Should Be 'WebAppPoolRule'
+                $rule.GetType() | Should -be 'WebAppPoolRule'
             }
             It "Should return Key '$($stig.Key)'" {
-                $rule.Key | Should Be $stig.Key
+                $rule.Key | Should -be $stig.Key
             }
             It "Should return Value '$($stig.Value)'" {
-                $rule.Value | Should Be $stig.Value
+                $rule.Value | Should -be $stig.Value
             }
             It "Should set the correct DscResource" {
-                $rule.DscResource | Should Be 'xWebAppPool'
+                $rule.DscResource | Should -be 'xWebAppPool'
             }
             It 'Should Set the status to pass' {
-                $rule.ConversionStatus | Should Be 'pass'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

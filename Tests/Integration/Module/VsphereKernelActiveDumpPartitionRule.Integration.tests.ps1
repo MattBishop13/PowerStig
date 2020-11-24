@@ -54,10 +54,10 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name   | Should -Be 'VsphereKernelActiveDumpPartitionRule'
-                $rule.Enabled          | Should -Be $Enabled
-                $rule.DscResource      | Should -Be 'VMHostKernelActiveDumpPartition'
-                $rule.ConversionStatus | Should -Be 'pass'
+                $rule.GetType().Name   | Should -be 'VsphereKernelActiveDumpPartitionRule'
+                $rule.Enabled          | Should -be $Enabled
+                $rule.DscResource      | Should -be 'VMHostKernelActiveDumpPartition'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

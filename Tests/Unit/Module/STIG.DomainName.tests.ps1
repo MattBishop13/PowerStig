@@ -47,7 +47,7 @@ Describe 'Get-DomainFQDN' {
 Describe 'Get-ForestFQDN' {
     # Test parameter validity -OutputPath
     It 'Should return $null' {
-        Get-ForestFQDN | Should -BeNullOrEmpty
+        Get-ForestFQDN | Should -beNullOrEmpty
     }
 }
 

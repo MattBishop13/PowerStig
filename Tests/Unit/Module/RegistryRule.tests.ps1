@@ -374,11 +374,11 @@ Documentation must contain supporting information from the vendor's instructions
             {
                 It "Should return $true" {
                     $multipleRule = [RegistryRuleConvert]::HasMultipleRules($testRule.CheckContent)
-                    $multipleRule | Should -Be $true
+                    $multipleRule | Should -be $true
                 }
                 It "Should return $($testRule.Count) rules" {
                     $multipleRule = [RegistryRuleConvert]::SplitMultipleRules($testRule.CheckContent)
-                    $multipleRule.count | Should -Be $testRule.Count
+                    $multipleRule.count | Should -be $testRule.Count
                 }
             }
         }
@@ -397,7 +397,7 @@ Documentation must contain supporting information from the vendor's instructions
             )
 
             It 'Should not match the DSA Database file registry path' {
-                [RegistryRuleConvert]::Match($stringsToTest.string) | Should -Be $false
+                [RegistryRuleConvert]::Match($stringsToTest.string) | Should -be $false
             }
         }
 
@@ -420,7 +420,7 @@ Documentation must contain supporting information from the vendor's instructions
             {
                 It "Should return true when given '$string'" {
                     $containsRange = Test-RegistryValueDataContainsRange -ValueDataString $string
-                    $containsRange | Should -Be $true
+                    $containsRange | Should -be $true
                 }
             }
         }

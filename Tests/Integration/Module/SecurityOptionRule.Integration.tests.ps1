@@ -40,25 +40,25 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return an SecurityOptionRule Object' {
-                $rule.GetType() | Should Be 'SecurityOptionRule'
+                $rule.GetType() | Should -be 'SecurityOptionRule'
             }
             It "Should set Option Name to '$($testString.OptionName)'" {
-                $rule.OptionName | Should Be $testString.OptionName
+                $rule.OptionName | Should -be $testString.OptionName
             }
             It "Should set Option Value to '$($testString.OptionValue)'" {
-                $rule.OptionValue | Should Be $testString.OptionValue
+                $rule.OptionValue | Should -be $testString.OptionValue
             }
             It "Should set OrganizationValueRequired to $($testString.OrganizationValueRequired)" {
-                $rule.OrganizationValueRequired | Should Be $testString.OrganizationValueRequired
+                $rule.OrganizationValueRequired | Should -be $testString.OrganizationValueRequired
             }
             It "Should set OrganizationValueTestString to $($testString.OrganizationValueTestString)" {
-                $rule.OrganizationValueTestString | Should Be $testString.OrganizationValueTestString
+                $rule.OrganizationValueTestString | Should -be $testString.OrganizationValueTestString
             }
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be 'SecurityOption'
+                $rule.DscResource | Should -be 'SecurityOption'
             }
             It 'Should Set the status to pass' {
-                $rule.conversionstatus | Should Be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
     }

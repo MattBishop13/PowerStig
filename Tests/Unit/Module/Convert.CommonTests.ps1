@@ -31,7 +31,7 @@ Describe "$($convertedRule.GetType().Name) Class Instance" {
     if ($count -le 0)
     {
         It "Should have a BaseType of $moduleName" {
-            $convertedRule.GetType().BaseType.ToString() | Should Be $moduleName
+            $convertedRule.GetType().BaseType.ToString() | Should -be $moduleName
         }
         $count ++
         <#
@@ -85,7 +85,7 @@ Describe "$($convertedRule.GetType().Name) Class Instance" {
                             $testRule.$property = $testRule.$property | ConvertTo-Json
                         }
                     }
-                    $convertedRule.$property | Should Be $testRule.$property
+                    $convertedRule.$property | Should -be $testRule.$property
                 }
             }
             # Remove the property from the list of tested properties
@@ -120,7 +120,7 @@ Describe "$($convertedRule.GetType().Name) Class Instance" {
         # Test the required convert module static method
         Describe 'Static Match' {
             It 'Should Match the string' {
-                $match.Invoke($convertedRule, $checkContent) | Should Be $true
+                $match.Invoke($convertedRule, $checkContent) | Should -be $true
             }
         }
     }

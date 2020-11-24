@@ -223,7 +223,7 @@ try
                 Alternately, use Icacls.exe to view the permissions of the SYSVOL directory.
                 Open a command prompt.
                 Run `"icacls c:\Windows\SYSVOL
-                The following results should be displayed:
+                The following results Should -be displayed:
 
                 NT AUTHORITY\Authenticated Users:(RX)
                 NT AUTHORITY\Authenticated Users:(OI)(CI)(IO)(GR,GE)
@@ -311,11 +311,11 @@ try
             {
                 It "Should return $true" {
                     $multipleRule = [PermissionRuleConvert]::HasMultipleRules($testRule.CheckContent)
-                    $multipleRule | Should -Be $true
+                    $multipleRule | Should -be $true
                 }
                 It "Should return $($testRule.Count) rules" {
                     $multipleRule = [PermissionRuleConvert]::SplitMultipleRules($testRule.CheckContent)
-                    $multipleRule.count | Should -Be $testRule.Count
+                    $multipleRule.count | Should -be $testRule.Count
                 }
             }
         }

@@ -4,8 +4,8 @@
 
 Describe "$moduleName module" {
 
-    It 'Should be a Script Module' {
-        (Get-Module -Name $script:modulePath -ListAvailable).ModuleType | Should Be 'Script'
+    It 'Should -be a Script Module' {
+        (Get-Module -Name $script:modulePath -ListAvailable).ModuleType | Should -be 'Script'
     }
 
     $compositeModulePaths = (Get-ChildItem -Path  $script:dscCompositePath -Include '*schema.psm1' -Recurse).FullName
@@ -23,7 +23,7 @@ Describe "$moduleName module" {
             if ($moduleInfo.ModuleName -ne "Vmware.vSphereDSC")
             {
                 It "Should require the same module listed in the manifest for DscResource $dscCompositeFile Module: $($moduleInfo.ModuleName)" {
-                    $moduleInfo.ModuleVersion | Should -Be $moduleData.ModuleVersion
+                    $moduleInfo.ModuleVersion | Should -be $moduleData.ModuleVersion
                 }
             }
         }
@@ -37,13 +37,13 @@ Describe "$moduleName module" {
         foreach ($export in $exportedCommands)
         {
             It "Should export the $export Command" {
-                $commands.Contains($export) | Should Be $true
+                $commands.Contains($export) | Should -be $true
             }
         }
 
         It 'Should not have more commands than are tested' {
             $compare = Compare-Object -ReferenceObject $commands -DifferenceObject $exportedCommands
-            $compare.Count | Should Be 0
+            $compare.Count | Should -be 0
         }
     }
 

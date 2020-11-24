@@ -28,20 +28,20 @@ If "Root Hints" is not empty and the entries on the "Root Hints" tab under "Name
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
-            It 'Should be a DnsServerRootHintRule' {
-                $rule.GetType() | Should be 'DnsServerRootHintRule'
+            It 'Should -be a DnsServerRootHintRule' {
+                $rule.GetType() | Should -be 'DnsServerRootHintRule'
             }
             It 'Should have a HostName of $null' {
-                $rule.HostName | Should Be '$null'
+                $rule.HostName | Should -be '$null'
             }
             It 'Should have a IpAddress of $null' {
-                $rule.IpAddress | Should Be '$null'
+                $rule.IpAddress | Should -be '$null'
             }
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be 'Script'
+                $rule.DscResource | Should -be 'Script'
             }
             It 'Should set the Conversion status to pass' {
-                $rule.conversionstatus | Should be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
     }

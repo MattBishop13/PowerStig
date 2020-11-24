@@ -236,7 +236,7 @@ Begin
 
     InvokeBuild                     = 'latest'
     PSScriptAnalyzer                = 'latest'
-    Pester                          = '4.10.1'
+    Pester                          = 'latest'
     Plaster                         = 'latest'
     ModuleBuilder                   = '1.0.0'
     ChangelogManagement             = 'latest'

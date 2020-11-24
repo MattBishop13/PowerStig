@@ -17,22 +17,22 @@ try
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 
         It 'Should return an AccountPolicyRule Object' {
-            $rule.GetType() | Should Be 'AccountPolicyRule'
+            $rule.GetType() | Should -be 'AccountPolicyRule'
         }
         It 'Should set the correct Policy Name' {
-            $rule.PolicyName | Should Be 'Setting to Configure'
+            $rule.PolicyName | Should -be 'Setting to Configure'
         }
         It 'Should not have OrganizationValueRequired set' {
-            $rule.OrganizationValueRequired | Should Be $false
+            $rule.OrganizationValueRequired | Should -be $false
         }
         It 'Should have emtpty test string' {
-            $rule.OrganizationValueTestString | Should BeNullOrEmpty
+            $rule.OrganizationValueTestString | Should -beNullOrEmpty
         }
         It "Should set the correct DscResource" {
-            $rule.DscResource | Should Be 'AccountPolicy'
+            $rule.DscResource | Should -be 'AccountPolicy'
         }
         It 'Should Set the status to pass' {
-            $rule.conversionstatus | Should Be 'pass'
+            $rule.conversionstatus | Should -be 'pass'
         }
     }
 
@@ -49,19 +49,19 @@ try
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 
         It 'Should set the correct Policy Name' {
-            $rule.PolicyName | Should Be 'Account lockout threshold'
+            $rule.PolicyName | Should -be 'Account lockout threshold'
         }
         It 'Should set OrganizationValueRequired to true' {
-            $rule.OrganizationValueRequired | Should Be $true
+            $rule.OrganizationValueRequired | Should -be $true
         }
         It 'Should have set a test string' {
-            $rule.OrganizationValueTestString | Should Be "'{0}' -le '3' -and '{0}' -ne '0'"
+            $rule.OrganizationValueTestString | Should -be "'{0}' -le '3' -and '{0}' -ne '0'"
         }
         It "Should set the correct DscResource" {
-            $rule.DscResource | Should Be 'AccountPolicy'
+            $rule.DscResource | Should -be 'AccountPolicy'
         }
         It 'Should Set the status to pass' {
-            $rule.conversionstatus | Should Be 'pass'
+            $rule.conversionstatus | Should -be 'pass'
         }
     }
 }

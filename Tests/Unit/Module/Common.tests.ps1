@@ -51,11 +51,11 @@ Describe 'RegularExpression Class' {
     Context 'Text Between Quotes' {
 
         It 'Should match string with double quotes' {
-            'hello "this" test' -Match ([RegularExpression]::TextBetweenQuotes) | Should Be $true
+            'hello "this" test' -Match ([RegularExpression]::TextBetweenQuotes) | Should -be $true
         }
 
         It 'Should match string with single quotes' {
-            "hello 'this' test" -Match ([RegularExpression]::TextBetweenQuotes) | Should Be $true
+            "hello 'this' test" -Match ([RegularExpression]::TextBetweenQuotes) | Should -be $true
         }
     }
 
@@ -63,15 +63,15 @@ Describe 'RegularExpression Class' {
     Context 'TextBetweenParentheses string matches' {
 
         It 'Should match string inside parentheses' {
-            '(text inside parentheses)' -Match ([RegularExpression]::TextBetweenParentheses) | Should Be $true
+            '(text inside parentheses)' -Match ([RegularExpression]::TextBetweenParentheses) | Should -be $true
         }
 
         It 'Should NOT match text outside of parentheses' {
-            'text outside ()' -Match ([RegularExpression]::TextBetweenParentheses) | Should Be $false
+            'text outside ()' -Match ([RegularExpression]::TextBetweenParentheses) | Should -be $false
         }
 
         It 'Should NOT match text inside improperly written parentheses' {
-            ')text(' -Match ([RegularExpression]::TextBetweenParentheses) | Should Be $false
+            ')text(' -Match ([RegularExpression]::TextBetweenParentheses) | Should -be $false
         }
 
         It 'Should return text inside of parentheses when grabbing the last group' {
@@ -81,7 +81,7 @@ Describe 'RegularExpression Class' {
             $result = ( "$unneededText (" + $text + ") $unneededText" |
                     Select-String -Pattern ([RegularExpression]::TextBetweenParentheses) ).matches.groups[-1].Value
 
-            $result | Should Be $text
+            $result | Should -be $text
         }
     }
 
@@ -107,7 +107,7 @@ Describe 'Get-AvailableId' {
     {
         It 'Should add the next available letter to an Id' {
             $global:stigSettings = @(@{Id = 'V-1000'})
-            Get-AvailableId -Id 'V-1000' | Should Be 'V-1000.a'
+            Get-AvailableId -Id 'V-1000' | Should -be 'V-1000.a'
         }
     }
     finally
@@ -129,15 +129,15 @@ Describe 'Get-StigXccdfBenchmarkContent' {
         Mock -CommandName Get-StigContentFromZip -MockWith { return $xccdfTestContent }
         Mock -CommandName Get-Content -MockWith { return $xccdfTestContent }
 
-        It 'Should throw if the path is not found' {
+        It 'SHould -Throw if the path is not found' {
             Mock -CommandName Test-Path -MockWith { return $false }
-            { Get-StigXccdfBenchmarkContent -Path C:\Not\Found\file.xml } | Should Throw
+            { Get-StigXccdfBenchmarkContent -Path C:\Not\Found\file.xml } | SHould -Throw
         }
 
         It 'Should extract the xccdf from a ZIP' {
             Mock -CommandName Test-Path -MockWith { $true }
             $return = Get-StigXccdfBenchmarkContent -Path 'C:\download.zip'
-            $return.title | Should Be 'Test Title'
+            $return.title | Should -be 'Test Title'
         }
     }
 }
@@ -152,7 +152,7 @@ Describe 'Get-StigContentFromZip' {
 
         It 'Should Extract the xccdf from the zip' {
             $return = Get-StigContentFromZip -Path C:\Path\to\file.zip
-            $return | Should Be 'Test XML'
+            $return | Should -be 'Test XML'
         }
     }
 }
@@ -201,7 +201,7 @@ Describe 'Get-OrganizationValueTestString' {
         Mock ConvertTo-OrTestString { return 'ConvertedString' } -ModuleName Common -ParameterFilter {$string -eq "";
             $Operator -eq 'Equal'}
         It 'Should return the correct string' {
-            Get-OrganizationValueTestString -String "1 or 2 = a Finding" | Should Be "ConvertedString"
+            Get-OrganizationValueTestString -String "1 or 2 = a Finding" | Should -be "ConvertedString"
         }
 
     }
@@ -231,7 +231,7 @@ Describe 'Get-TestStringTokenNumbers' {
     foreach ($string in $strings.GetEnumerator())
     {
         It "Should return '$($string.Value)' when given '$($string.Key)'" {
-            Get-TestStringTokenNumbers -String $string.Key | Should Be $string.Value
+            Get-TestStringTokenNumbers -String $string.Key | Should -be $string.Value
         }
     }
 }
@@ -261,7 +261,7 @@ Describe 'Get-TestStringTokenList' {
         foreach ($string in $strings.GetEnumerator())
         {
             It "Should return '$($string.Value)' when given '$($string.Key)'" {
-                Get-TestStringTokenList -String $string.Key | Should Be $string.Value
+                Get-TestStringTokenList -String $string.Key | Should -be $string.Value
             }
         }
     }
@@ -276,7 +276,7 @@ Describe 'Get-TestStringTokenList' {
         foreach ($string in $strings.GetEnumerator())
         {
             It "Should return '$($string.Value)' when given '$($string.Key)'" {
-                Get-TestStringTokenList -String $string.Key -StringTokens | Should Be $string.Value
+                Get-TestStringTokenList -String $string.Key -StringTokens | Should -be $string.Value
             }
         }
     }
@@ -309,7 +309,7 @@ Describe 'ConvertTo-TestString' {
             -MockWith {return "greater than"}
 
         It "Should return '$($string.Value)' when given '$($string.key)'" {
-            ConvertTo-TestString -String $string.key | Should Be $string.Value
+            ConvertTo-TestString -String $string.key | Should -be $string.Value
         }
     }
 }
@@ -335,8 +335,8 @@ Describe 'Test-StringIsNegativeOr' {
 
     foreach ($positiveMatchString in $positiveMatchStrings)
     {
-        It "Should be true with '$positiveMatchString'" {
-            Test-StringIsNegativeOr -String $positiveMatchString | Should be $true
+        It "Should -be true with '$positiveMatchString'" {
+            Test-StringIsNegativeOr -String $positiveMatchString | Should -be $true
         }
     }
 
@@ -349,8 +349,8 @@ Describe 'Test-StringIsNegativeOr' {
 
     foreach ($negativeMatchString in $negativeMatchStrings)
     {
-        It "Should be false with '$negativeMatchString'" {
-            Test-StringIsNegativeOr -String $negativeMatchString | Should be $false
+        It "Should -be false with '$negativeMatchString'" {
+            Test-StringIsNegativeOr -String $negativeMatchString | Should -be $false
         }
     }
 }
@@ -377,8 +377,8 @@ Describe 'Test-StringIsPositiveOr' {
 
     foreach ($positiveMatchString in $positiveMatchStrings)
     {
-        It "Should be true with '$positiveMatchString'" {
-            Test-StringIsPositiveOr -String $positiveMatchString | Should be $true
+        It "Should -be true with '$positiveMatchString'" {
+            Test-StringIsPositiveOr -String $positiveMatchString | Should -be $true
         }
     }
 
@@ -390,8 +390,8 @@ Describe 'Test-StringIsPositiveOr' {
 
     foreach ($negativeMatchString in $negativeMatchStrings)
     {
-        It "Should be false with '$negativeMatchString'" {
-            Test-StringIsPositiveOr -String $negativeMatchString | Should be $false
+        It "Should -be false with '$negativeMatchString'" {
+            Test-StringIsPositiveOr -String $negativeMatchString | Should -be $false
         }
     }
 }
@@ -413,12 +413,12 @@ Describe 'ConvertTo-OrTestString' {
         {
             It "Should return '$($positiveMatchString.Value)' from '$($positiveMatchString.Key)'" {
                 ConvertTo-OrTestString -String $positiveMatchString.Key -Operator $operator |
-                    Should BeExactly $positiveMatchString.Value
+                    Should -beExactly $positiveMatchString.Value
             }
         }
 
-        It 'Should throw an error if not a valid string' {
-            {ConvertTo-NegativeOrTestString -String "Invalid" -Operator $operator} | Should Throw
+        It 'SHould -Throw an error if not a valid string' {
+            {ConvertTo-NegativeOrTestString -String "Invalid" -Operator $operator} | SHould -Throw
         }
     }
 
@@ -434,12 +434,12 @@ Describe 'ConvertTo-OrTestString' {
         {
             It "Should return '$($positiveMatchString.Value)' from '$($positiveMatchString.Key)'" {
                 ConvertTo-OrTestString -String $positiveMatchString.Key -Operator $operator |
-                    Should BeExactly $positiveMatchString.Value
+                    Should -beExactly $positiveMatchString.Value
             }
         }
 
-        It 'Should throw an error if not a valid string' {
-            {ConvertTo-NegativeOrTestString -String "Invalid" -Operator $operator} | Should Throw
+        It 'SHould -Throw an error if not a valid string' {
+            {ConvertTo-NegativeOrTestString -String "Invalid" -Operator $operator} | SHould -Throw
         }
     }
 }
@@ -453,7 +453,7 @@ Describe 'Test-StringIsGreaterThan' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsGreaterThan -String $string | Should Be $true
+            Test-StringIsGreaterThan -String $string | Should -be $true
         }
     }
 }
@@ -474,7 +474,7 @@ Describe 'Test-StringIsGreaterThanOrEqual' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsGreaterThanOrEqual -String $string | Should Be $true
+            Test-StringIsGreaterThanOrEqual -String $string | Should -be $true
         }
     }
 }
@@ -487,7 +487,7 @@ Describe 'Test-StringIsGreaterThanButNot' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsGreaterThanButNot -String $string | Should Be $true
+            Test-StringIsGreaterThanButNot -String $string | Should -be $true
         }
     }
 }
@@ -500,7 +500,7 @@ Describe 'Test-StringIsGreaterThanOrEqualButNot' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsGreaterThanOrEqualButNot -String $string | Should Be $true
+            Test-StringIsGreaterThanOrEqualButNot -String $string | Should -be $true
         }
     }
 }
@@ -517,7 +517,7 @@ Describe 'Test-StringIsLessThan' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsLessThan -String $string | Should Be $true
+            Test-StringIsLessThan -String $string | Should -be $true
         }
     }
 }
@@ -539,7 +539,7 @@ Describe 'Test-StringIsLessThanOrEqual' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsLessThanOrEqual -String $string | Should Be $true
+            Test-StringIsLessThanOrEqual -String $string | Should -be $true
         }
     }
 }
@@ -553,7 +553,7 @@ Describe 'Test-StringIsLessThanButNot' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsLessThanButNot -String $string | Should Be $true
+            Test-StringIsLessThanButNot -String $string | Should -be $true
         }
     }
 }
@@ -575,7 +575,7 @@ Describe 'Test-StringIsLessThanOrEqualButNot' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsLessThanOrEqualButNot -String $string | Should Be $true
+            Test-StringIsLessThanOrEqualButNot -String $string | Should -be $true
         }
     }
 }
@@ -590,7 +590,7 @@ Describe 'Test-StringIsLessThanOrEqualExcluding' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsLessThanOrEqualExcluding -String $string | Should Be $true
+            Test-StringIsLessThanOrEqualExcluding -String $string | Should -be $true
         }
     }
 }
@@ -605,7 +605,7 @@ Describe 'Test-StringIsMultipleValue' {
     foreach ($string in $strings)
     {
         It "Should return $true when given '$string'" {
-            Test-StringIsMultipleValue -String $string | Should Be $true
+            Test-StringIsMultipleValue -String $string | Should -be $true
         }
     }
 }
@@ -617,7 +617,7 @@ Describe 'ConvertTo-MultipleValue' {
     foreach ($string in $strings.GetEnumerator())
     {
         It "Should return '$($string.Value)' when given '$($string.key)'" {
-            ConvertTo-MultipleValue -String $string.key | Should Be $string.Value
+            ConvertTo-MultipleValue -String $string.key | Should -be $string.Value
         }
     }
 }
@@ -652,7 +652,7 @@ Describe 'Get-SecurityPolicyString' {
     {
         It 'Should return the second string in quotes' {
             $checkContent = (Split-TestStrings -CheckContent $checkString.checkContent)
-            Get-SecurityPolicyString -CheckContent $checkContent | Should Be $checkString.match
+            Get-SecurityPolicyString -CheckContent $checkContent | Should -be $checkString.match
         }
     }
 }
@@ -680,7 +680,7 @@ Describe 'Test-SecurityPolicyContainsRange' {
         {
             It "Should return true from '$string'" {
                 $checkContent = (Split-TestStrings -CheckContent ($checkContent -f $string))
-                Test-SecurityPolicyContainsRange -CheckContent $checkContent| Should Be $true
+                Test-SecurityPolicyContainsRange -CheckContent $checkContent| Should -be $true
             }
         }
     }
@@ -699,7 +699,7 @@ Describe 'Test-SecurityPolicyContainsRange' {
             It "Should return false from '$string'" {
                 $checkContent = (Split-TestStrings -CheckContent ($checkContent -f $string))
                 $result = Test-SecurityPolicyContainsRange -CheckContent $checkContent
-                $result | Should Be $false
+                $result | Should -be $false
             }
         }
     }
@@ -725,12 +725,12 @@ Describe 'Get-SecurityPolicyOrganizationValueTestString' {
         It "Should return ($($string.Value)) from '$($string.Key)'" {
             $checkContent = (Split-TestStrings -CheckContent ($checkContent -f $string.Key))
             $result = Get-SecurityPolicyOrganizationValueTestString -CheckContent $checkContent
-            $result | Should Be $string.Value
+            $result | Should -be $string.Value
         }
     }
 
-    It 'Should throw if a match is not found' {
-        {Get-SecurityPolicyOrganizationValueTestString -CheckContent 'no match'} | Should Throw
+    It 'SHould -Throw if a match is not found' {
+        {Get-SecurityPolicyOrganizationValueTestString -CheckContent 'no match'} | SHould -Throw
     }
 }
 #endregion

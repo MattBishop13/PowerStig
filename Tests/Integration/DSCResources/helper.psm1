@@ -522,7 +522,7 @@ function Get-CategoryRule
 
     $severityWhereMatch = (ConvertTo-Severity -Category $RuleCategory) -join '|'
 
-    # Only loop through rules which have a defined DSC Resource; should be only Document & Manual rules.
+    # Only loop through rules which have a defined DSC Resource; Should -be only Document & Manual rules.
     $dscResourceModule = $PowerStigXml.GetEnumerator() | Where-Object -FilterScript {$PSItem.dscresourcemodule -ne 'None'}
 
     foreach ($resource in $dscResourceModule)

@@ -99,36 +99,36 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return an IisLoggingRule Object' {
-                $rule.GetType() | Should Be 'IisLoggingRule'
+                $rule.GetType() | Should -be 'IisLoggingRule'
             }
 
             It 'Should return expected LogCustomFieldEntry' {
                 $compare = Compare-Object -ReferenceObject  $rule.LogCustomFieldEntry -DifferenceObject $stig.LogCustomFieldEntry
-                $compare.count | Should Be 0
+                $compare.count | Should -be 0
             }
 
             It "Should return LogFlags '$($stig.LogFlags)'" {
-                $rule.LogFlags | Should Be $stig.LogFlags
+                $rule.LogFlags | Should -be $stig.LogFlags
             }
 
             It "Should return LogFormat '$($stig.LogFormat)'" {
-                $rule.LogFormat | Should Be $stig.LogFormat
+                $rule.LogFormat | Should -be $stig.LogFormat
             }
 
             It "Should return LogPeriod '$($stig.LogPeriod)'" {
-                $rule.LogPeriod | Should Be $stig.LogPeriod
+                $rule.LogPeriod | Should -be $stig.LogPeriod
             }
 
             It "Should return LogTargetW3C '$($stig.LogTargetW3C)'" {
-                $rule.LogTargetW3C | Should Be $stig.LogTargetW3C
+                $rule.LogTargetW3C | Should -be $stig.LogTargetW3C
             }
 
             It 'Should set status to pass' {
-                $rule.ConversionStatus | Should Be 'pass'
+                $rule.ConversionStatus | Should -be 'pass'
             }
 
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be $stig.DscResource
+                $rule.DscResource | Should -be $stig.DscResource
             }
         }
     }

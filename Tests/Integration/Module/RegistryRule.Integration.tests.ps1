@@ -199,34 +199,34 @@ try
                 $rule = ConvertFrom-StigXccdf -Path $TestFile
 
                 It 'Should return an RegistryRule Object' {
-                    $rule.GetType() | Should Be 'RegistryRule'
+                    $rule.GetType() | Should -be 'RegistryRule'
                 }
                 It 'Should extract the correct key' {
-                    $rule.key | Should Be $($registry.Hive + $registry.Path)
+                    $rule.key | Should -be $($registry.Hive + $registry.Path)
                 }
                 It 'Should extract the correct value name' {
-                    $rule.valueName | Should Be $registry.ValueName
+                    $rule.valueName | Should -be $registry.ValueName
                 }
                 It 'Should extract the correct value data' {
-                    $rule.valueData | Should Be $registry.ValueData
+                    $rule.valueData | Should -be $registry.ValueData
                 }
                 It 'Should extract the correct value type' {
-                    $rule.valueType | Should Be $registry.ValueType
+                    $rule.valueType | Should -be $registry.ValueType
                 }
                 It 'Should set the ensure value' {
-                    $rule.Ensure | Should Be $registry.Ensure
+                    $rule.Ensure | Should -be $registry.Ensure
                 }
                 It 'Should set OrganizationValueRequired to true' {
-                    $rule.OrganizationValueRequired | Should Be $registry.OrganizationValueRequired
+                    $rule.OrganizationValueRequired | Should -be $registry.OrganizationValueRequired
                 }
                 It 'Should extract the correct OrganizationValueTestString' {
-                    $rule.OrganizationValueTestString | Should Be $registry.OrganizationValueTestString
+                    $rule.OrganizationValueTestString | Should -be $registry.OrganizationValueTestString
                 }
                 It 'Should set the correct DscResource' {
-                    $rule.DscResource | Should Be $registry.DscResource
+                    $rule.DscResource | Should -be $registry.DscResource
                 }
                 It 'Should Set the status to pass' {
-                    $rule.conversionstatus | Should Be 'pass'
+                    $rule.conversionstatus | Should -be 'pass'
                 }
             }
         }

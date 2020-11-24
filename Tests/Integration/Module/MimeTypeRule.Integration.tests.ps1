@@ -47,28 +47,28 @@ try
         $rules = ConvertFrom-StigXccdf -Path $TestFile
 
         It "Should retrun '$($stigRuleToTest.RuleCount))'" {
-            $rules.count | Should be $stigRuleToTest.RuleCount
+            $rules.count | Should -be $stigRuleToTest.RuleCount
         }
 
         foreach ($rule in $rules)
         {
             It 'Should return an MimeTypeRule Object' {
-                $rule.GetType() | Should Be 'MimeTypeRule'
+                $rule.GetType() | Should -be 'MimeTypeRule'
             }
             It "Should return Extension $($stigRuleToTest.Extension[$index])" {
-                $rule.Extension | Should Be $stigRuleToTest.Extension[$index]
+                $rule.Extension | Should -be $stigRuleToTest.Extension[$index]
             }
             It "Should return MimeType '$( $mimeTypeMapping[$rule.Extension] )" {
-                $rule.MimeType | Should Be $mimeTypeMapping[$rule.Extension]
+                $rule.MimeType | Should -be $mimeTypeMapping[$rule.Extension]
             }
             It "Should return Ensure '$($stigRuleToTest.Ensure)'" {
-                $rule.Ensure | Should Be $stigRuleToTest.Ensure
+                $rule.Ensure | Should -be $stigRuleToTest.Ensure
             }
             It "Should set the correct DscResource" {
-                $rule.DscResource | Should Be 'xIisMimeTypeMapping'
+                $rule.DscResource | Should -be 'xIisMimeTypeMapping'
             }
             It 'Should Set the status to pass' {
-                $rule.ConversionStatus | Should Be 'pass'
+                $rule.ConversionStatus | Should -be 'pass'
             }
 
             $index++

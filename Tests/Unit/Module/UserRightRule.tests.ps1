@@ -261,12 +261,12 @@ try
                 It "Should return $true if multiple policies settings are found" {
                     $checkContent = $testRule.CheckContent -f $testRule.FirstUserRightsAssignment, $testRule.SecondUserRightsAssignment
                     $multipleRule = [UserRightRuleConvert]::HasMultipleRules($checkContent)
-                    $multipleRule | Should -Be $true
+                    $multipleRule | Should -be $true
                 }
                 It "Should return $false if multiple policies settings are not found" {
                     $checkContent = $testRule.CheckContent -f $testRule.FirstUserRightsAssignment, ''
                     $multipleRule = [UserRightRuleConvert]::HasMultipleRules($checkContent)
-                    $multipleRule | Should -Be $false
+                    $multipleRule | Should -be $false
                 }
 
                 Context 'Split Rules' {

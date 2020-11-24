@@ -26,7 +26,7 @@ try
 
             Use the Get-DnsServerDiagnostics cmdlet to view the status of individual diagnostic events.
 
-            All diagnostic events should be set to "True".
+            All diagnostic events Should -be set to "True".
 
             If all diagnostic events are not set to "True", this is a finding.
 
@@ -57,19 +57,19 @@ try
                 $rule = ConvertFrom-StigXccdf -Path $TestFile
 
                 It 'Should return an WinEventLogRule Object' {
-                    $rule.GetType() | Should Be 'WinEventLogRule'
+                    $rule.GetType() | Should -be 'WinEventLogRule'
                 }
                 It "Should return LogName '$($WinEvents.LogName)'" {
-                    $rule.LogName | Should Be $WinEvents.LogName
+                    $rule.LogName | Should -be $WinEvents.LogName
                 }
                 It "Should return IsEnabled '$($WinEvents.IsEnabled)'" {
-                    $rule.IsEnabled | Should Be $WinEvents.IsEnabled
+                    $rule.IsEnabled | Should -be $WinEvents.IsEnabled
                 }
                 It "Should set the correct DscResource" {
-                    $rule.DscResource | Should Be 'xWinEventLog'
+                    $rule.DscResource | Should -be 'xWinEventLog'
                 }
                 It 'Should Set the status to pass' {
-                    $rule.conversionstatus | Should Be 'pass'
+                    $rule.conversionstatus | Should -be 'pass'
                 }
             }
         }

@@ -43,7 +43,7 @@ foreach ($stig in $stigList)
                 }
 
                 It "Should have $($dscXml.Count) Registry settings" {
-                    $hasAllSettings | Should Be $true
+                    $hasAllSettings | Should -be $true
                 }
             }
         }

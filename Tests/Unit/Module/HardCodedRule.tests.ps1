@@ -230,7 +230,7 @@ try
         Describe 'Hard Coded Rule Match' {
             It 'Should match and return true' {
                 $hardCodedRuleMatch = [HardCodedRuleConvert]::Match($testRuleListSingle[0].CheckContent)
-                $hardCodedRuleMatch | Should Be $true
+                $hardCodedRuleMatch | Should -be $true
             }
         }
 
@@ -244,7 +244,7 @@ try
                     $convertedStigRule = [HardCodedRuleConvert]::new($stigRule).AsRule()
 
                     It "Should convert to $($testRule.RuleType)" {
-                        $convertedStigRule.GetType().Name | Should Be $testRule.RuleType
+                        $convertedStigRule.GetType().Name | Should -be $testRule.RuleType
                     }
 
                     $ruleProperties = $testRule.Clone()
@@ -261,7 +261,7 @@ try
                                 foreach ($key in $convertedRuleProperty.Keys)
                                 {
                                     It "Should have correct $key property value defined" {
-                                        $convertedRuleProperty[$key] | Should Be $testRuleProperty[$key]
+                                        $convertedRuleProperty[$key] | Should -be $testRuleProperty[$key]
                                     }
                                 }
                             }
@@ -269,7 +269,7 @@ try
                         else
                         {
                             It "Should have correct $property property value defined" {
-                                $convertedStigRule.$property | Should Be $testRule[$property]
+                                $convertedStigRule.$property | Should -be $testRule[$property]
                             }
                         }
                     }
@@ -280,7 +280,7 @@ try
         Describe 'Split Hard Coded Rule' {
             It 'Should have more than one rule (split)' {
                 $hardCodedRuleHasMultipleRules = [HardCodedRuleConvert]::HasMultipleRules($testRuleListSplit[0].CheckContent)
-                $hardCodedRuleHasMultipleRules | Should Be $true
+                $hardCodedRuleHasMultipleRules | Should -be $true
             }
 
             foreach ($splitRule in $testRuleListSplit)
@@ -300,7 +300,7 @@ try
 
                     $splitRuleCount = ($splitRule.CheckContent -split '\<splitRule\>').Count
                     It "Should have $splitRuleCount split rules" {
-                        $convertedStigRule.Count | Should Be $splitRuleCount
+                        $convertedStigRule.Count | Should -be $splitRuleCount
                     }
 
                     $testRuleIds = $splitRule.Keys | Where-Object -FilterScript {$PSItem -ne 'CheckContent'}
@@ -309,14 +309,14 @@ try
                     {
                         $testRule = $splitRule[$testRuleIds[$i]].Clone()
                         It "Should convert to $($testRule.RuleType)" {
-                            $convertedStigRule[$i].GetType().Name | Should Be $testRule.RuleType
+                            $convertedStigRule[$i].GetType().Name | Should -be $testRule.RuleType
                         }
 
                         It "Should have correct $($testRule.RuleType) property values defined" {
                             $testRule.Remove('RuleType')
                             foreach ($property in $testRule.Keys)
                             {
-                                $convertedStigRule[$i].$property | Should Be $testRule[$property]
+                                $convertedStigRule[$i].$property | Should -be $testRule[$property]
                             }
                         }
                     }

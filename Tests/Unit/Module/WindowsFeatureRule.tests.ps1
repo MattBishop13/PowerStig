@@ -116,11 +116,11 @@ try
                 # Create an instance of the convert class that is currently being tested
                 $convertedRule = [WindowsFeatureRuleConvert]::new($stigRule)
                 It "Should return $true" {
-                    $convertedRule.HasMultipleRules() | Should Be $true
+                    $convertedRule.HasMultipleRules() | Should -be $true
                 }
                 It "Should return $($testRule.Count) rules" {
                     $multipleRule = $convertedRule.SplitMultipleRules()
-                    $multipleRule.count | Should Be $testRule.Count
+                    $multipleRule.count | Should -be $testRule.Count
                 }
             }
         }

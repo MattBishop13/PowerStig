@@ -114,20 +114,20 @@ finding.
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
-            It 'Should be a DnsServerSettingRule' {
-                $rule.GetType() | Should be 'DnsServerSettingRule'
+            It 'Should -be a DnsServerSettingRule' {
+                $rule.GetType() | Should -be 'DnsServerSettingRule'
             }
             It 'Should have Forwarders for PropertyName' {
-                $rule.PropertyName | Should Be 'NoRecursion'
+                $rule.PropertyName | Should -be 'NoRecursion'
             }
             It 'Should have PropertyValue of None' {
-                $rule.PropertyValue | Should Be '$True'
+                $rule.PropertyValue | Should -be '$True'
             }
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be 'xDnsServerSetting'
+                $rule.DscResource | Should -be 'xDnsServerSetting'
             }
             It 'Should set the Conversion status to pass' {
-                $rule.conversionstatus | Should be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
 
@@ -138,20 +138,20 @@ finding.
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
-            It 'Should be a DnsServerSettingRule' {
-                $rule.GetType() | Should be 'DnsServerSettingRule'
+            It 'Should -be a DnsServerSettingRule' {
+                $rule.GetType() | Should -be 'DnsServerSettingRule'
             }
             It 'Should have Forwarders for EventLogLevel' {
-                $rule.PropertyName | Should Be 'EventLogLevel'
+                $rule.PropertyName | Should -be 'EventLogLevel'
             }
             It 'Should have PropertyValue of 4' {
-                $rule.PropertyValue | Should Be '4'
+                $rule.PropertyValue | Should -be '4'
             }
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be 'xDnsServerSetting'
+                $rule.DscResource | Should -be 'xDnsServerSetting'
             }
             It 'Should set the Conversion status to pass' {
-                $rule.conversionstatus | Should be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
     }
@@ -167,7 +167,7 @@ finding.
 
             It 'Should have 3 unique IDs' {
                 $result = $rule | Select-Object Id -Unique
-                $result.count | Should be 3
+                $result.count | Should -be 3
             }
         }
 
@@ -182,35 +182,35 @@ finding.
             $permissionRule = $rule | Where-Object { $PSItem.GetType().ToString() -eq 'PermissionRule' }
 
             It 'Should contain a UserRightRule' {
-                $userRightRule.GetType() | Should Be 'UserRightRule'
+                $userRightRule.GetType() | Should -be 'UserRightRule'
             }
 
             It 'Should contain a PermissionRule' {
-                $permissionRule.GetType() | Should Be 'PermissionRule'
+                $permissionRule.GetType() | Should -be 'PermissionRule'
             }
 
             It 'Should have different Ids' {
                 $result = $rule | Select-Object -Property Id -Unique
-                $result.count | Should Be 2
+                $result.count | Should -be 2
             }
 
             It 'PermissionRule should have correct property values' {
-                $permissionRule.path | Should Be '%windir%\SYSTEM32\WINEVT\LOGS\DNS Server.evtx'
+                $permissionRule.path | Should -be '%windir%\SYSTEM32\WINEVT\LOGS\DNS Server.evtx'
 
                 foreach ($entry in $permissionRule.AccessControlEntry)
                 {
-                    $entry.Rights | Should Be 'FullControl'
+                    $entry.Rights | Should -be 'FullControl'
                 }
 
                 $principalCount = $permissionRule.AccessControlEntry.Principal |
                     Where-Object {$PSItem -match 'Eventlog|SYSTEM|Administrators'}
 
-                $principalCount.count | Should Be 3
+                $principalCount.count | Should -be 3
             }
 
             It 'UserRightRule Should have a correct property values' {
-                $userRightRule.Constant | Should Be 'SeSecurityPrivilege'
-                $userRightRule.Identity | Should Be 'Administrators'
+                $userRightRule.Constant | Should -be 'SeSecurityPrivilege'
+                $userRightRule.Identity | Should -be 'Administrators'
             }
         }
     }

@@ -40,10 +40,10 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name      | Should -Be 'VspherePortGroupSecurityRule'
-                $rule.MacChangesInherited | Should -Be $MacChangesInherited
-                $rule.DscResource         | Should -Be 'VMHostVssPortGroupSecurity'
-                $rule.ConversionStatus    | Should -Be 'pass'
+                $rule.GetType().Name      | Should -be 'VspherePortGroupSecurityRule'
+                $rule.MacChangesInherited | Should -be $MacChangesInherited
+                $rule.DscResource         | Should -be 'VMHostVssPortGroupSecurity'
+                $rule.ConversionStatus    | Should -be 'pass'
             }
         }
     }

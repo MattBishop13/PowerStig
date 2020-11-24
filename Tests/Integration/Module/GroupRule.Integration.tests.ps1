@@ -38,17 +38,17 @@ try
             $stigRule.Save( $TestFile )
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
-            It 'Should be a GroupRule' {
-                $rule.GetType() | Should Be 'GroupRule'
+            It 'Should -be a GroupRule' {
+                $rule.GetType() | Should -be 'GroupRule'
             }
             It "Should return GroupName:'$($rule.GroupName)'" {
-                $rule.GroupName | Should Be $groupRule.GroupName
+                $rule.GroupName | Should -be $groupRule.GroupName
             }
             It "Should return MembersToExclude:'$($rule.MembersToExclude)'" {
-                $rule.MembersToExclude | Should Be $groupRule.MembersToExclude
+                $rule.MembersToExclude | Should -be $groupRule.MembersToExclude
             }
             It "Should set the correct DscResource" {
-                $rule.DscResource | Should Be 'Group'
+                $rule.DscResource | Should -be 'Group'
             }
         }
     }

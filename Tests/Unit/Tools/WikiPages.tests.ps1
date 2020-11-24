@@ -17,7 +17,7 @@ try
                             'There are multiple lines.') -Join "`n"
                     }
                     Format-HelpString -String $testString.sample |
-                    Should Be $testString.result
+                    Should -be $testString.result
                 }
                 It 'Should return full sentences on each line.' {
                     $testString = @{
@@ -30,7 +30,7 @@ try
                     }
 
                     Format-HelpString -String $testString.sample |
-                    Should Be $testString.result
+                    Should -be $testString.result
                 }
             }
 
@@ -46,7 +46,7 @@ try
                             'There are multiple lines.') -Join " "
                     }
                     Format-HelpString -String $testString.sample -SingleLine |
-                    Should Be $testString.result
+                    Should -be $testString.result
                 }
             }
         }

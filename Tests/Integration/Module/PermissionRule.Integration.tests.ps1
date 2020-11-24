@@ -36,30 +36,30 @@ try
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 
         It 'Should return a PermissionRule Object' {
-            $rule.GetType() | Should Be 'PermissionRule'
+            $rule.GetType() | Should -be 'PermissionRule'
         }
         It 'Should extract the correct path' {
-            $rule.Path | Should Be ('%windir%\SYSTEM32\' + $targetExe)
+            $rule.Path | Should -be ('%windir%\SYSTEM32\' + $targetExe)
         }
         It 'Should extract the FullControl permission for TrustedInstaller' {
             $principalToTest = $rule.AccessControlEntry | Where-Object Principal -eq 'TrustedInstaller'
-            $principalToTest.Rights | Should Be 'FullControl'
+            $principalToTest.Rights | Should -be 'FullControl'
         }
 
         foreach ( $principal in $principalList -split ',' )
         {
             It 'Should extract the ReadAndExecute permission for all the principals listed on one line' {
                 $principalToTest = $rule.AccessControlEntry | Where-Object Principal -eq $principal.Trim()
-                $principalToTest.Rights | Should Be 'ReadAndExecute'
+                $principalToTest.Rights | Should -be 'ReadAndExecute'
             }
         }
         It 'Should extract This folder subfolders and files for inheritance' {
             $principalToTest = $rule.AccessControlEntry | Where-Object Principal -eq $principal2
-            $principalToTest.Inheritance | Should Be 'This folder subfolders and files'
+            $principalToTest.Inheritance | Should -be 'This folder subfolders and files'
         }
 
         It 'Should return NTFSAccessEntry for DscResource' {
-            $rule.dscresource | Should Be 'NTFSAccessEntry'
+            $rule.dscresource | Should -be 'NTFSAccessEntry'
         }
     }
 }

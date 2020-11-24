@@ -29,7 +29,7 @@ try
 
                 Use the Get-DnsServerDiagnostics cmdlet to view the status of individual diagnostic events.
 
-                All diagnostic events should be set to "True".
+                All diagnostic events Should -be set to "True".
 
                 If all diagnostic events are not set to "True", this is a finding.
 

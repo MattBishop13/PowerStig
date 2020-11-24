@@ -35,27 +35,27 @@ try
             foreach ( $rule in $rules)
             {
                 It 'Should return an ProcessMitigationRule Object' {
-                    $rule.GetType() | Should Be 'ProcessMitigationRule'
+                    $rule.GetType() | Should -be 'ProcessMitigationRule'
                 }
 
                 It "Should return MitigationTarget '$($mitigationsRule.MitigationTarget)'" {
-                    $rule.MitigationTarget | Should Be $mitigationsRule.MitigationTarget
+                    $rule.MitigationTarget | Should -be $mitigationsRule.MitigationTarget
                 }
 
                 It "Should return MitigationType '$($mitigationsRule.MitigationType)'" {
-                    $rule.MitigationType | Should be $mitigationsRule.MitigationType
+                    $rule.MitigationType | Should -be $mitigationsRule.MitigationType
                 }
 
                 It "Should return MitigationName '$($mitigationsRule.MitigationName)'" {
-                    $rule.MitigationName | Should be $mitigationsRule.MitigationName
+                    $rule.MitigationName | Should -be $mitigationsRule.MitigationName
                 }
 
                 It "Should return MitigationValue '$($mitigationsRule.MitigationValue)'" {
-                    $rule.MitigationValue | Should be $mitigationsRule.MitigationValue
+                    $rule.MitigationValue | Should -be $mitigationsRule.MitigationValue
                 }
 
                 It "Should set the correct DscResource" {
-                    $rule.DscResource | Should Be 'ProcessMitigation'
+                    $rule.DscResource | Should -be 'ProcessMitigation'
                 }
             }
         }

@@ -42,10 +42,10 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name   | Should -Be 'VsphereAcceptanceLevelRule'
-                $rule.Level            | Should -Be $Level
-                $rule.DscResource      | Should -Be 'VMHostAcceptanceLevel'
-                $rule.ConversionStatus | Should -Be 'pass'
+                $rule.GetType().Name   | Should -be 'VsphereAcceptanceLevelRule'
+                $rule.Level            | Should -be $Level
+                $rule.DscResource      | Should -be 'VMHostAcceptanceLevel'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

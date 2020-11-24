@@ -39,10 +39,10 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name   | Should -Be 'VsphereVssSecurityRule'
-                $rule.ForgedTransmits  | Should -Be $ForgedTransmits
-                $rule.DscResource      | Should -Be 'VMHostVssSecurity'
-                $rule.ConversionStatus | Should -Be 'pass'
+                $rule.GetType().Name   | Should -be 'VsphereVssSecurityRule'
+                $rule.ForgedTransmits  | Should -be $ForgedTransmits
+                $rule.DscResource      | Should -be 'VMHostVssSecurity'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }

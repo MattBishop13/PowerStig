@@ -203,38 +203,38 @@ Describe 'Registry call' {
             $instance = ([Microsoft.PowerShell.DesiredStateConfiguration.Internal.DscClassCache]::ImportInstances("$TestDrive\localhost.mof", 4))[0]
 
             It 'Should set the correct Ensure flag' {
-                $instance.Ensure | Should Be $rule.Ensure
+                $instance.Ensure | Should -be $rule.Ensure
             }
             It 'Should set the correct Key' {
-                $instance.Key | Should Be $rule.Key
+                $instance.Key | Should -be $rule.Key
             }
 
             It 'Should set the correct Name' {
-                $instance.ValueName | Should Be $rule.ValueName
+                $instance.ValueName | Should -be $rule.ValueName
             }
             if ($instance.Ensure -eq 'Present' -or $instance.ResourceID -match '\[RegistryPolicyFile\]')
             {
                 It 'Should set the correct Type' {
-                    $instance.ValueType | Should Be $rule.ValueType
+                    $instance.ValueType | Should -be $rule.ValueType
                 }
                 It 'Should set the correct Data' {
                     if ($null -eq $rule.ValueData)
                     {
-                        $instance.ValueData | Should Be $([string]::Empty)
+                        $instance.ValueData | Should -be $([string]::Empty)
                     }
                     else
                     {
-                        $instance.ValueData | Should Be $rule.ValueData
+                        $instance.ValueData | Should -be $rule.ValueData
                     }
                 }
             }
             else
             {
                 It 'Should set the correct Type' {
-                    $instance.ValueType | Should Be $null
+                    $instance.ValueType | Should -be $null
                 }
                 It 'Should set the correct Data' {
-                    $instance.ValueData | Should Be $null
+                    $instance.ValueData | Should -be $null
                 }
             }
 

@@ -90,25 +90,25 @@ try
             $rule = ConvertFrom-StigXccdf -Path $TestFile
 
             It 'Should return an AuditSettingRule Object' {
-                $rule.GetType() | Should Be 'AuditSettingRule'
+                $rule.GetType() | Should -be 'AuditSettingRule'
             }
             It 'Should extract the correct Query' {
-                $rule.Query | Should Be $testRule.query
+                $rule.Query | Should -be $testRule.query
             }
             It 'Should extract the correct Property Name' {
-                $rule.Property | Should Be $testRule.property
+                $rule.Property | Should -be $testRule.property
             }
             It 'Should set the correct Value' {
-                $rule.desiredvalue | Should Be $testRule.desiredvalue
+                $rule.desiredvalue | Should -be $testRule.desiredvalue
             }
             It 'Should set the correct Operator' {
-                $rule.Operator | Should Be $testRule.operator
+                $rule.Operator | Should -be $testRule.operator
             }
             It "Should set the correct DscResource" {
-                $rule.DscResource | Should Be 'AuditSetting'
+                $rule.DscResource | Should -be 'AuditSetting'
             }
             It 'Should Set the status to pass' {
-                $rule.conversionstatus | Should Be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
     }

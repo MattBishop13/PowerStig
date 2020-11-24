@@ -81,11 +81,11 @@ try
 
                 It "Should return $true" {
                     $multipleRule = [FileContentRuleConvert]::HasMultipleRules($testRule.CheckContent)
-                    $multipleRule | Should -Be $true
+                    $multipleRule | Should -be $true
                 }
                 It "Should return $($testRule.Count) rules" {
                     $multipleRule = [FileContentRuleConvert]::SplitMultipleRules($testRule.CheckContent)
-                    $multipleRule.count | Should -Be $testRule.Count
+                    $multipleRule.count | Should -be $testRule.Count
                 }
             }
         }

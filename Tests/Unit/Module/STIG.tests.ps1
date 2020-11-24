@@ -15,23 +15,23 @@ try
         Context 'Member Server' {
             $sampleXccdfSplitPath = "$TestDrive\$sampleXccdfFileName" -f '_MS'
             It 'Should create an MS STIG file' {
-                Test-Path -Path $sampleXccdfSplitPath | Should Be $true
+                Test-Path -Path $sampleXccdfSplitPath | Should -be $true
             }
 
             It 'Should have MS in the benchmark ID' {
                 [xml] $sampleXccdfSplitContent = Get-Content $sampleXccdfSplitPath -Encoding UTF8 -Raw
-                $sampleXccdfSplitContent.Benchmark.id | Should Be ($sampleXccdfId -f '_MS')
+                $sampleXccdfSplitContent.Benchmark.id | Should -be ($sampleXccdfId -f '_MS')
             }
         }
 
         Context 'Domain Controller' {
             $sampleXccdfSplitPath = "$TestDrive\$sampleXccdfFileName" -f '_DC'
             It 'Should create an DC STIG file' {
-                Test-Path -Path $sampleXccdfSplitPath | Should Be $true
+                Test-Path -Path $sampleXccdfSplitPath | Should -be $true
             }
             It 'Should have DC in the benchmark ID' {
                 [xml] $sampleXccdfSplitContent = Get-Content $sampleXccdfSplitPath -Encoding UTF8 -Raw
-                $sampleXccdfSplitContent.Benchmark.id | Should Be ($sampleXccdfId -f '_DC')
+                $sampleXccdfSplitContent.Benchmark.id | Should -be ($sampleXccdfId -f '_DC')
             }
         }
     }
@@ -44,7 +44,7 @@ try
 
         It 'Should extract the version number from the xccdf' {
             Get-StigVersionNumber -StigDetails $sampleXccdf |
-                Should Be "$majorVersionNumber.$minorVersionNumber"
+                Should -be "$majorVersionNumber.$minorVersionNumber"
         }
     }
 
@@ -60,13 +60,13 @@ try
             $powerStigFileList = Get-PowerStigFileList -StigDetails $sampleXccdf
 
             It 'Should return a fileInfo Object' {
-                $powerStigFileList.Settings.GetType().ToString() | Should Be 'System.IO.FileInfo'
+                $powerStigFileList.Settings.GetType().ToString() | Should -be 'System.IO.FileInfo'
             }
             It 'Should return the file name' {
-                $powerStigFileList.Settings.Name | Should Be $expectedName
+                $powerStigFileList.Settings.Name | Should -be $expectedName
             }
             It 'Should return the full path' {
-                $powerStigFileList.Settings.FullName | Should Be "$script:moduleRoot\StigData\Processed\$expectedName"
+                $powerStigFileList.Settings.FullName | Should -be "$script:moduleRoot\StigData\Processed\$expectedName"
             }
         }
 
@@ -76,7 +76,7 @@ try
             $powerStigFileList = Get-PowerStigFileList -StigDetails $sampleXccdf -Destination '.\Path'
 
             It 'Should return the full path of the supplied destination' {
-                $powerStigFileList.Settings.FullName | Should Be "C:\Test\Path\$expectedName"
+                $powerStigFileList.Settings.FullName | Should -be "C:\Test\Path\$expectedName"
             }
         }
         #>
@@ -235,15 +235,15 @@ try
                         # The metadata in the SQL STIG doesn't specifiy database or instance so we get that from the file name of the xccdf.
                         $benchmarkId = Split-BenchmarkId -Id $sample.Id -FilePath $sample.Path
                         It "Should return $($sample.Technology) as the Technology property" {
-                            $benchmarkId.Technology | Should Be $sample.Technology
+                            $benchmarkId.Technology | Should -be $sample.Technology
                         }
                         It "Should return $($sample.TechnologyVersion) as the TechnologyVersion property" {
-                            $benchmarkId.TechnologyVersion | Should Be $sample.TechnologyVersion
+                            $benchmarkId.TechnologyVersion | Should -be $sample.TechnologyVersion
                         }
 
                         It "Should return $($sample.TechnologyRole) as the TechnologyRole property" {
 
-                            $benchmarkId.TechnologyRole | Should Be $sample.TechnologyRole
+                            $benchmarkId.TechnologyRole | Should -be $sample.TechnologyRole
                         }
                     }
                 }
@@ -255,7 +255,7 @@ try
         It 'Should not contain conversionstatus="fail" in any processed STIG' {
             $processedStigDataPath = Join-Path -Path $script:moduleRoot -ChildPath 'StigData\Processed\*.xml'
             $selectStringResults = Select-String -Pattern 'conversionstatus="fail"' -Path $processedStigDataPath
-            $selectStringResults | Should Be $null
+            $selectStringResults | Should -be $null
         }
     }
 }

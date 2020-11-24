@@ -65,22 +65,22 @@ try
                 $rule = ConvertFrom-StigXccdf -Path $TestFile
 
                 It 'Should return an WebConfigurationPropertyRule Object' {
-                    $rule.GetType() | Should Be 'WebConfigurationPropertyRule'
+                    $rule.GetType() | Should -be 'WebConfigurationPropertyRule'
                 }
                 It "Should return ConfigSection '$($stig.ConfigSection)'" {
-                    $rule.ConfigSection | Should Be $stig.ConfigSection
+                    $rule.ConfigSection | Should -be $stig.ConfigSection
                 }
                 It "Should return Key '$($stig.Key)'" {
-                    $rule.Key | Should Be $stig.Key
+                    $rule.Key | Should -be $stig.Key
                 }
                 It "Should return Value '$($stig.Value)'" {
-                    $rule.Value | Should Be $stig.Value
+                    $rule.Value | Should -be $stig.Value
                 }
                 It 'Should set the correct DscResource' {
-                    $rule.DscResource | Should Be 'xWebConfigKeyValue'
+                    $rule.DscResource | Should -be 'xWebConfigKeyValue'
                 }
                 It 'Should Set the status to pass' {
-                    $rule.ConversionStatus | Should Be 'pass'
+                    $rule.ConversionStatus | Should -be 'pass'
                 }
             }
         }

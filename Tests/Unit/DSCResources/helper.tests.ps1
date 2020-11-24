@@ -18,8 +18,8 @@ Describe 'Functions' {
 
         $title = Get-ResourceTitle -Rule $xml.DISASTIG.RegistryRule.Rule
 
-        It 'Title Should be in the correct format' {
-            $title | Should Be "[V-1075][low][Display Shutdown Button]"
+        It 'Title Should -be in the correct format' {
+            $title | Should -be "[V-1075][low][Display Shutdown Button]"
         }
     }
 
@@ -34,20 +34,20 @@ Describe 'Functions' {
 
         It 'Should return a boolean as a string without double quotes' {
             $result = Format-FirefoxPreference -Value $true
-            $result | Should -BeOftype 'String'
-            $result | Should -Be 'True'
+            $result | Should -beOftype 'String'
+            $result | Should -be 'True'
         }
 
         It 'Should return a string wrapped in double quotes' {
             $result = Format-FireFoxPreference -Value 'Meaning of Life'
-            $result | Should -BeOftype 'String'
-            $result | Should -Be '"Meaning of Life"'
+            $result | Should -beOftype 'String'
+            $result | Should -be '"Meaning of Life"'
         }
 
         It 'Should return and a number as a string without double quotes' {
             $result = Format-FireFoxPreference -Value 42
-            $result | Should -BeOftype 'String'
-            $result | Should -Be '42'
+            $result | Should -beOftype 'String'
+            $result | Should -be '42'
         }
     }
 
@@ -61,8 +61,8 @@ Describe 'Functions' {
             $functionResult = Format-SqlScriptVariable @parameteres
             $compareResult  = Compare-Object -ReferenceObject $functionResult -DifferenceObject @('TraceFilePath=c:\trace\log','MaxRollOverFileCount=5','MaxTraceFileSize=500')
 
-            $functionResult | Should -BeOfType 'string'
-            $compareResult  | Should -Be $null
+            $functionResult | Should -beOfType 'string'
+            $compareResult  | Should -be $null
         }
 
         It 'Should properly format a value with spaces' {
@@ -73,8 +73,8 @@ Describe 'Functions' {
 
             $functionResult = Format-SqlScriptVariable @parameters
 
-            $functionResult | Should -BeOfType 'string'
-            $functionResult | Should -Be $($parameters.Variable -f $parameters.VariableValue)
+            $functionResult | Should -beOfType 'string'
+            $functionResult | Should -be $($parameters.Variable -f $parameters.VariableValue)
         }
     }
 }

@@ -78,22 +78,22 @@ try
                 $rule = ConvertFrom-StigXccdf -Path $TestFile
 
                 It 'Should return an ServiceRule Object' {
-                    $rule.GetType() | Should Be 'ServiceRule'
+                    $rule.GetType() | Should -be 'ServiceRule'
                 }
                 It "Should return Service Name '$($service.ServiceName)'" {
-                    $rule.ServiceName | Should Be $service.ServiceName
+                    $rule.ServiceName | Should -be $service.ServiceName
                 }
                 It "Should return Service State '$($service.ServiceState)' from '$($service.ServiceName)'" {
-                    $rule.ServiceState | Should Be $service.ServiceState
+                    $rule.ServiceState | Should -be $service.ServiceState
                 }
                 It "Should return Startup Type '$($service.StartupType)' from '$($service.ServiceName)'" {
-                    $rule.StartupType | Should Be $service.StartupType
+                    $rule.StartupType | Should -be $service.StartupType
                 }
                 It 'Should set the correct DscResource' {
-                    $rule.DscResource | Should Be 'Service'
+                    $rule.DscResource | Should -be 'Service'
                 }
                 It 'Should set the Conversion statud to pass ensure value' {
-                    $rule.conversionstatus | Should be $service.conversionstatus
+                    $rule.conversionstatus | Should -be $service.conversionstatus
                 }
             }
         }
@@ -114,7 +114,7 @@ try
         $rule = ConvertFrom-StigXccdf -Path $TestFile
 
         It 'Should return Multiple ServiceRule Objects' {
-            $rule.Count | Should Be 2
+            $rule.Count | Should -be 2
         }
 
         Context 'First Split Rule' {
@@ -122,25 +122,25 @@ try
             $rule = $rule[0]
 
             It 'Should return an ServiceRule Object' {
-                $rule.GetType() | Should Be 'ServiceRule'
+                $rule.GetType() | Should -be 'ServiceRule'
             }
             It 'Should append .a to the id' {
                 $rule.id | Should Match '^V-.*\.a$'
             }
             It 'Should return "NTDS"' {
-                $rule.ServiceName | Should Be 'NTDS'
+                $rule.ServiceName | Should -be 'NTDS'
             }
             It 'Should return "Running"' {
-                $rule.ServiceState | Should Be 'Running'
+                $rule.ServiceState | Should -be 'Running'
             }
             It 'Should return "Automatic"' {
-                $rule.StartupType | Should Be 'Automatic'
+                $rule.StartupType | Should -be 'Automatic'
             }
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be 'Service'
+                $rule.DscResource | Should -be 'Service'
             }
             It 'Should set the Conversion statud to pass ensure value' {
-                $rule.conversionstatus | Should be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
 
@@ -149,25 +149,25 @@ try
             $rule = $rule[1]
 
             It 'Should return an ServiceRule Object' {
-                $rule.GetType() | Should Be 'ServiceRule'
+                $rule.GetType() | Should -be 'ServiceRule'
             }
             It 'Should append .b to the id' {
                 $rule.id | Should Match '^V-.*\.b$'
             }
             It 'Should return "W32Time"' {
-                $rule.ServiceName | Should Be 'W32Time'
+                $rule.ServiceName | Should -be 'W32Time'
             }
             It 'Should return "Running"' {
-                $rule.ServiceState | Should Be 'Running'
+                $rule.ServiceState | Should -be 'Running'
             }
             It 'Should return "Automatic"' {
-                $rule.StartupType | Should Be 'Automatic'
+                $rule.StartupType | Should -be 'Automatic'
             }
             It 'Should set the correct DscResource' {
-                $rule.DscResource | Should Be 'Service'
+                $rule.DscResource | Should -be 'Service'
             }
             It 'Should set the Conversion statud to pass ensure value' {
-                $rule.conversionstatus | Should be 'pass'
+                $rule.conversionstatus | Should -be 'pass'
             }
         }
     }

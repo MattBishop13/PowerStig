@@ -31,10 +31,10 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name              | Should -Be 'VsphereNtpSettingsRule'
-                $rule.OrganizationValueTestString | Should -Be $OrganizationValueTestString
-                $rule.DscResource                 | Should -Be 'VMHostNtpSettings'
-                $rule.ConversionStatus            | Should -Be 'pass'
+                $rule.GetType().Name              | Should -be 'VsphereNtpSettingsRule'
+                $rule.OrganizationValueTestString | Should -be $OrganizationValueTestString
+                $rule.DscResource                 | Should -be 'VMHostNtpSettings'
+                $rule.ConversionStatus            | Should -be 'pass'
             }
         }
     }

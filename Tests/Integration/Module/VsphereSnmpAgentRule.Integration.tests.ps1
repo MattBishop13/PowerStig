@@ -50,10 +50,10 @@ try
                 $stigRule.Save($testFile)
                 $rule = ConvertFrom-StigXccdf -Path $testFile
 
-                $rule.GetType().Name   | Should -Be 'VsphereSnmpAgentRule'
-                $rule.Enabled          | Should -Be $Enabled
-                $rule.DscResource      | Should -Be 'VMHostSnmpAgent'
-                $rule.ConversionStatus | Should -Be 'pass'
+                $rule.GetType().Name   | Should -be 'VsphereSnmpAgentRule'
+                $rule.Enabled          | Should -be $Enabled
+                $rule.DscResource      | Should -be 'VMHostSnmpAgent'
+                $rule.ConversionStatus | Should -be 'pass'
             }
         }
     }
